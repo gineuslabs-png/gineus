@@ -1,1468 +1,1082 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>GINEUS — Web3 Ecosystem</title>
-
-<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background:
-        radial-gradient(circle at top, #082b35 0%, #02080b 45%, #010304 100%);
-    color: #ffffff;
-    min-height: 100vh;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-.container {
-    width: min(1100px, 92%);
-    margin: auto;
-}
-
-/* NAVBAR */
-
-nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(15px);
-    background: rgba(1, 8, 11, 0.82);
-    border-bottom: 1px solid rgba(0, 151, 178, 0.18);
-}
-
-.nav-inner {
-    height: 76px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo-wrap {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.logo {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
-}
-
-.brand {
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: 2px;
-}
-
-.brand span {
-    color: #0097b2;
-}
-
-.nav-links {
-    display: flex;
-    gap: 25px;
-    align-items: center;
-}
-
-.nav-links a {
-    color: #b7c8cd;
-    font-size: 14px;
-}
-
-.nav-links a:hover {
-    color: #00c7e8;
-}
-
-.connect-btn {
-    background: #0097b2;
-    border: none;
-    color: white;
-    padding: 12px 18px;
-    border-radius: 10px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.connect-btn:hover {
-    background: #00abc9;
-}
-
-/* HERO */
-
-.hero {
-    padding: 100px 0 80px;
-    text-align: center;
-}
-
-.hero-logo {
-    width: 150px;
-    max-width: 45%;
-    margin-bottom: 25px;
-}
-
-.badge {
-    display: inline-block;
-    border: 1px solid rgba(0, 151, 178, 0.45);
-    color: #00c7e8;
-    background: rgba(0, 151, 178, 0.08);
-    padding: 8px 15px;
-    border-radius: 50px;
-    font-size: 12px;
-    margin-bottom: 22px;
-}
-
-.hero h1 {
-    font-size: clamp(42px, 8vw, 82px);
-    line-height: 0.95;
-    margin-bottom: 22px;
-    letter-spacing: -3px;
-}
-
-.hero h1 span {
-    color: #0097b2;
-}
-
-.hero p {
-    max-width: 650px;
-    margin: auto;
-    color: #9eb3b9;
-    line-height: 1.7;
-    font-size: 17px;
-}
-
-.hero-buttons {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.btn {
-    display: inline-block;
-    padding: 14px 21px;
-    border-radius: 10px;
-    font-weight: 700;
-    border: 1px solid rgba(0, 151, 178, 0.35);
-}
-
-.btn-primary {
-    background: #0097b2;
-}
-
-.btn-secondary {
-    background: rgba(255,255,255,0.04);
-    color: #c7d7db;
-}
-
-/* SECTIONS */
-
-section {
-    padding: 75px 0;
-}
-
-.section-title {
-    text-align: center;
-    margin-bottom: 45px;
-}
-
-.section-title h2 {
-    font-size: 34px;
-    margin-bottom: 10px;
-}
-
-.section-title p {
-    color: #849aa0;
-}
-
-/* CARDS */
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-}
-
-.card {
-    background: rgba(7, 22, 27, 0.82);
-    border: 1px solid rgba(0, 151, 178, 0.18);
-    border-radius: 18px;
-    padding: 25px;
-}
-
-.card h3 {
-    margin-bottom: 10px;
-}
-
-.card p {
-    color: #8ea4aa;
-    line-height: 1.6;
-    font-size: 14px;
-}
-
-/* TOKEN */
-
-.token-box {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-}
-
-.info-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 15px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-
-.info-row:last-child {
-    border-bottom: none;
-}
-
-.info-label {
-    color: #81969b;
-}
-
-.info-value {
-    text-align: right;
-    word-break: break-all;
-}
-
-/* WALLET */
-
-.wallet-panel {
-    background: linear-gradient(
-        145deg,
-        rgba(0,151,178,0.15),
-        rgba(4,17,21,0.9)
-    );
-    border: 1px solid rgba(0,151,178,0.28);
-    border-radius: 22px;
-    padding: 30px;
-}
-
-.wallet-status {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin-bottom: 25px;
-}
-
-.wallet-address {
-    color: #00c7e8;
-    font-family: monospace;
-    word-break: break-all;
-}
-
-.balance-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
-
-.balance-card {
-    background: rgba(0,0,0,0.25);
-    border-radius: 14px;
-    padding: 20px;
-}
-
-.balance-card small {
-    color: #82989e;
-}
-
-.balance {
-    font-size: 28px;
-    font-weight: 800;
-    margin-top: 8px;
-}
-
-/* AIRDROP */
-
-.airdrop-box {
-    background: rgba(5,18,22,0.85);
-    border: 1px solid rgba(0,151,178,0.25);
-    border-radius: 22px;
-    padding: 30px;
-}
-
-.points-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 25px;
-}
-
-.points-card {
-    padding: 22px;
-    background: rgba(0,151,178,0.08);
-    border-radius: 15px;
-    border: 1px solid rgba(0,151,178,0.15);
-}
-
-.points-number {
-    font-size: 35px;
-    font-weight: 800;
-    color: #00c7e8;
-    margin-top: 7px;
-}
-
-.referral-code {
-    font-size: 22px;
-    font-weight: 800;
-    color: #00c7e8;
-    margin-top: 7px;
-    word-break: break-all;
-}
-
-.task-list {
-    display: grid;
-    gap: 10px;
-}
-
-.task {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 17px;
-    background: rgba(255,255,255,0.025);
-    border-radius: 12px;
-}
-
-.task-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.task-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(255,255,255,0.08);
-}
-
-.task.done .task-icon {
-    background: #0097b2;
-}
-
-.task-points {
-    color: #00c7e8;
-    font-weight: 700;
-}
-
-.task-status {
-    color: #6d858b;
-    font-size: 13px;
-}
-
-.task.done .task-status {
-    color: #6df0b0;
-}
-
-.status-box {
-    margin-top: 18px;
-    padding: 14px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.04);
-    color: #8da3a8;
-    font-size: 13px;
-    line-height: 1.5;
-    display: none;
-}
-
-.status-box.show {
-    display: block;
-}
-
-.status-box.error {
-    border: 1px solid rgba(255,80,80,0.3);
-    color: #ff9b9b;
-}
-
-.status-box.success {
-    border: 1px solid rgba(50,220,150,0.3);
-    color: #8ff0c0;
-}
-
-/* ROADMAP */
-
-.roadmap {
-    display: grid;
-    gap: 15px;
-}
-
-.road {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 20px;
-    padding: 20px;
-    background: rgba(255,255,255,0.025);
-    border-radius: 14px;
-}
-
-.road-phase {
-    color: #00c7e8;
-    font-weight: 800;
-}
-
-.road p {
-    color: #8da2a7;
-    line-height: 1.6;
-}
-
-/* FOOTER */
-
-footer {
-    padding: 50px 0;
-    border-top: 1px solid rgba(0,151,178,0.12);
-    color: #657b81;
-    text-align: center;
-    font-size: 13px;
-}
-
-@media(max-width: 800px) {
-    .nav-links {
-        display: none;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#071116" />
+  <meta name="description" content="GINEUS — Web3 ecosystem, community points and GINEUS Test Token on SVPChain Testnet." />
+  <title>GINEUS — Web3 Ecosystem</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
+  <!-- Firebase Web SDK (compat CDN) -->
+  <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics-compat.js"></script>
+
+  <style>
+    :root{
+      --bg:#050a0d;
+      --bg2:#081318;
+      --card:rgba(12,25,31,.78);
+      --card2:rgba(8,19,24,.92);
+      --line:rgba(0,151,178,.22);
+      --line2:rgba(255,255,255,.09);
+      --cyan:#0097b2;
+      --cyan2:#24d8ef;
+      --white:#f4fbfd;
+      --muted:#8da4ab;
+      --green:#45e0a2;
+      --yellow:#ffd66b;
+      --danger:#ff6f78;
+      --shadow:0 20px 70px rgba(0,0,0,.35);
+      --radius:22px;
     }
 
-    .grid,
-    .token-box,
-    .balance-grid,
-    .points-header {
-        grid-template-columns: 1fr;
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at 12% 8%,rgba(0,151,178,.14),transparent 28%),
+        radial-gradient(circle at 88% 18%,rgba(36,216,239,.08),transparent 24%),
+        linear-gradient(180deg,#050a0d 0%,#071116 55%,#04090c 100%);
+      color:var(--white);
+      min-height:100vh;
+      overflow-x:hidden;
     }
 
-    .hero {
-        padding-top: 70px;
+    a{text-decoration:none;color:inherit}
+    button{font:inherit}
+    .container{width:min(1160px,calc(100% - 36px));margin:auto}
+
+    .grid-bg{
+      position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.28;
+      background-image:
+        linear-gradient(rgba(0,151,178,.035) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,151,178,.035) 1px,transparent 1px);
+      background-size:46px 46px;
+      mask-image:linear-gradient(to bottom,black,transparent 90%);
     }
 
-    .road {
-        grid-template-columns: 1fr;
-        gap: 8px;
+    nav{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter:blur(18px);
+      background:rgba(5,10,13,.76);
+      border-bottom:1px solid var(--line2);
     }
-}
-</style>
+
+    .nav-inner{
+      height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+    }
+
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.08em}
+    .brand img{
+      width:42px;height:42px;object-fit:contain;border-radius:12px;
+      filter:drop-shadow(0 0 14px rgba(0,151,178,.28));
+    }
+    .brand span{font-size:19px}
+
+    .nav-links{display:flex;gap:25px;color:var(--muted);font-size:14px}
+    .nav-links a:hover{color:var(--white)}
+
+    .wallet-btn,.primary-btn{
+      border:0;border-radius:13px;padding:12px 17px;font-weight:800;cursor:pointer;
+      color:#021014;background:linear-gradient(135deg,var(--cyan2),var(--cyan));
+      box-shadow:0 10px 30px rgba(0,151,178,.18);
+      transition:.2s transform,.2s filter;
+    }
+    .wallet-btn:hover,.primary-btn:hover{transform:translateY(-1px);filter:brightness(1.08)}
+    .wallet-btn.connected{background:rgba(69,224,162,.12);color:var(--green);border:1px solid rgba(69,224,162,.28);box-shadow:none}
+
+    .hero{padding:92px 0 60px}
+    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:54px;align-items:center}
+
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:9px;
+      border:1px solid var(--line);background:rgba(0,151,178,.07);
+      color:var(--cyan2);border-radius:999px;padding:8px 13px;font-size:12px;font-weight:800;
+      letter-spacing:.08em;text-transform:uppercase;margin-bottom:20px;
+    }
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+
+    h1{
+      font-size:clamp(46px,7vw,82px);line-height:.94;letter-spacing:-.055em;
+      max-width:760px;
+    }
+    .gradient-text{
+      background:linear-gradient(100deg,#fff 10%,#8cefff 55%,#0097b2 100%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    .hero p{margin:24px 0 30px;max-width:650px;color:var(--muted);font-size:18px;line-height:1.75}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+    .secondary-btn{
+      padding:12px 17px;border:1px solid var(--line2);border-radius:13px;
+      background:rgba(255,255,255,.035);color:var(--white);font-weight:800;cursor:pointer;
+    }
+    .secondary-btn:hover{border-color:var(--line);background:rgba(0,151,178,.06)}
+
+    .hero-logo{
+      position:relative;display:grid;place-items:center;min-height:390px;
+      border:1px solid var(--line);border-radius:34px;
+      background:
+        radial-gradient(circle at 50% 44%,rgba(0,151,178,.20),transparent 42%),
+        linear-gradient(145deg,rgba(12,31,38,.85),rgba(5,12,16,.92));
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .hero-logo:before{
+      content:"";position:absolute;width:270px;height:270px;border-radius:50%;
+      border:1px solid rgba(36,216,239,.16);box-shadow:0 0 100px rgba(0,151,178,.16);
+    }
+    .hero-logo img{position:relative;width:min(68%,330px);object-fit:contain;filter:drop-shadow(0 0 35px rgba(0,151,178,.28))}
+
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0 70px}
+    .stat{
+      border:1px solid var(--line2);border-radius:17px;background:rgba(255,255,255,.025);
+      padding:20px;
+    }
+    .stat b{display:block;font-size:22px;margin-bottom:5px}
+    .stat span{color:var(--muted);font-size:12px}
+
+    section{padding:48px 0}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px}
+    .section-head h2{font-size:32px;letter-spacing:-.03em}
+    .section-head p{color:var(--muted);font-size:14px;max-width:560px;line-height:1.6}
+
+    .dashboard{
+      display:grid;grid-template-columns:.9fr 1.1fr;gap:18px;
+    }
+
+    .card{
+      background:linear-gradient(145deg,rgba(12,27,34,.86),rgba(7,16,20,.88));
+      border:1px solid var(--line2);border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .wallet-card{padding:25px}
+    .card-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:20px}
+    .card-title h3{font-size:17px}
+    .badge{
+      font-size:10px;font-weight:900;padding:6px 9px;border-radius:999px;
+      color:var(--cyan2);border:1px solid var(--line);background:rgba(0,151,178,.07);
+      text-transform:uppercase;letter-spacing:.08em;
+    }
+
+    .wallet-address{
+      font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--muted);
+      padding:12px;border-radius:12px;background:#050b0e;border:1px solid var(--line2);
+      overflow:hidden;text-overflow:ellipsis;margin-bottom:13px;
+    }
+    .balance-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .balance{
+      padding:16px;border:1px solid var(--line2);border-radius:15px;background:rgba(255,255,255,.025)
+    }
+    .balance span{display:block;color:var(--muted);font-size:11px;margin-bottom:6px}
+    .balance strong{font-size:21px}
+
+    .status{
+      margin-top:13px;padding:11px 13px;border-radius:12px;font-size:12px;
+      color:var(--muted);background:rgba(255,255,255,.025);border:1px solid var(--line2);
+      min-height:40px;display:flex;align-items:center;
+    }
+    .status.ok{color:var(--green);border-color:rgba(69,224,162,.22);background:rgba(69,224,162,.05)}
+    .status.err{color:var(--danger);border-color:rgba(255,111,120,.22);background:rgba(255,111,120,.05)}
+
+    .points-card{padding:25px;position:relative;overflow:hidden}
+    .points-card:after{
+      content:"";position:absolute;width:230px;height:230px;border-radius:50%;right:-100px;top:-110px;
+      background:rgba(0,151,178,.13);filter:blur(10px);
+    }
+    .points-number{font-size:64px;font-weight:950;letter-spacing:-.06em;line-height:1;margin:10px 0 6px}
+    .points-label{color:var(--muted);font-size:13px}
+    .ref-row{display:flex;gap:8px;margin-top:22px}
+    .ref-input{
+      flex:1;min-width:0;border:1px solid var(--line2);background:#050b0e;color:var(--white);
+      border-radius:12px;padding:12px;font-family:ui-monospace,monospace;font-size:12px;
+    }
+
+    .task-list{display:grid;gap:10px;margin-top:20px}
+    .task{
+      display:flex;align-items:center;justify-content:space-between;gap:15px;
+      padding:15px;border:1px solid var(--line2);border-radius:15px;background:rgba(255,255,255,.025);
+    }
+    .task-info{display:flex;align-items:center;gap:12px;min-width:0}
+    .task-icon{
+      width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+      background:rgba(0,151,178,.09);border:1px solid var(--line);font-size:17px;flex:none;
+    }
+    .task h4{font-size:13px;margin-bottom:3px}
+    .task p{color:var(--muted);font-size:11px}
+    .task button{
+      border:1px solid var(--line);background:rgba(0,151,178,.07);color:var(--cyan2);
+      padding:8px 11px;border-radius:10px;font-size:11px;font-weight:900;cursor:pointer;white-space:nowrap
+    }
+    .task button.done{border-color:rgba(69,224,162,.25);color:var(--green);background:rgba(69,224,162,.06);cursor:default}
+
+    .cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+    .info-card{padding:24px}
+    .icon-box{
+      width:44px;height:44px;display:grid;place-items:center;border-radius:13px;
+      background:rgba(0,151,178,.09);border:1px solid var(--line);margin-bottom:17px
+    }
+    .info-card h3{margin-bottom:8px}
+    .info-card p{color:var(--muted);font-size:13px;line-height:1.7}
+
+    .token-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+    .token-card{padding:25px}
+    .token-row{display:flex;justify-content:space-between;gap:20px;padding:14px 0;border-bottom:1px solid var(--line2)}
+    .token-row:last-child{border-bottom:0}
+    .token-row span{color:var(--muted);font-size:13px}
+    .token-row strong{font-size:13px;text-align:right}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+    .roadmap{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .phase{padding:20px;border:1px solid var(--line2);border-radius:18px;background:rgba(255,255,255,.025)}
+    .phase small{color:var(--cyan2);font-weight:900}
+    .phase h3{margin:9px 0 8px;font-size:15px}
+    .phase p{color:var(--muted);font-size:12px;line-height:1.6}
+
+    footer{border-top:1px solid var(--line2);margin-top:45px;padding:32px 0 50px;color:var(--muted);font-size:12px}
+    .footer-inner{display:flex;justify-content:space-between;gap:20px;align-items:center}
+    .footer-brand{display:flex;align-items:center;gap:10px;color:var(--white);font-weight:900}
+    .footer-brand img{width:30px;height:30px;border-radius:8px;object-fit:contain}
+
+    .modal{
+      position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:20px;
+      background:rgba(0,0,0,.7);backdrop-filter:blur(10px)
+    }
+    .modal.show{display:grid}
+    .modal-box{width:min(460px,100%);padding:25px;border:1px solid var(--line);border-radius:22px;background:#071116;box-shadow:var(--shadow)}
+    .modal-box h3{margin-bottom:8px}
+    .modal-box p{color:var(--muted);font-size:13px;line-height:1.6;margin-bottom:18px}
+    .modal-actions{display:flex;gap:9px;justify-content:flex-end}
+
+    @media(max-width:900px){
+      .hero-grid,.dashboard,.token-grid{grid-template-columns:1fr}
+      .hero-logo{min-height:300px}
+      .cards-3,.roadmap{grid-template-columns:1fr 1fr}
+      .nav-links{display:none}
+    }
+    @media(max-width:600px){
+      .container{width:min(100% - 24px,1160px)}
+      .nav-inner{height:66px}
+      .brand span{font-size:16px}
+      .wallet-btn{padding:10px 12px;font-size:12px}
+      .hero{padding:65px 0 35px}
+      .hero p{font-size:15px}
+      .stats{grid-template-columns:1fr 1fr}
+      .cards-3,.roadmap{grid-template-columns:1fr}
+      .balance-grid{grid-template-columns:1fr}
+      .task{align-items:flex-start}
+      .footer-inner{flex-direction:column;align-items:flex-start}
+      .section-head{align-items:flex-start;flex-direction:column}
+    }
+  </style>
 </head>
 
 <body>
+  <div class="grid-bg"></div>
 
-<!-- NAVBAR -->
-<nav>
+  <nav>
     <div class="container nav-inner">
+      <a class="brand" href="#top">
+        <img src="logo.png" alt="GINEUS logo" onerror="this.style.display='none'">
+        <span>GINEUS</span>
+      </a>
 
-        <div class="logo-wrap">
-            <img src="logo.png" class="logo" alt="GINEUS">
-            <div class="brand">
-                <span>G</span>INEUS
-            </div>
-        </div>
+      <div class="nav-links">
+        <a href="#dashboard">Dashboard</a>
+        <a href="#airdrop">Airdrop</a>
+        <a href="#token">Token</a>
+        <a href="#roadmap">Roadmap</a>
+      </div>
 
-        <div class="nav-links">
-            <a href="#token">Token</a>
-            <a href="#wallet">Wallet</a>
-            <a href="#airdrop">Airdrop</a>
-            <a href="#roadmap">Roadmap</a>
-        </div>
-
-        <button class="connect-btn" onclick="connectWallet()">
-            Connect Wallet
-        </button>
-
+      <button class="wallet-btn" id="connectBtn">Connect Wallet</button>
     </div>
-</nav>
+  </nav>
 
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> SVPChain Testnet Ecosystem</div>
+          <h1>Think smarter.<br><span class="gradient-text">Build GINEUS.</span></h1>
+          <p>
+            GINEUS is a community-driven Web3 ecosystem built around the idea of
+            <b>G + Genius + Brain</b> — starting on SVPChain Testnet with community points,
+            on-chain activity and future ecosystem utilities.
+          </p>
 
-<!-- HERO -->
-<header class="hero">
+          <div class="hero-actions">
+            <button class="primary-btn" onclick="scrollToSection('dashboard')">Open Dashboard</button>
+            <a class="secondary-btn" href="https://swap.svpstars.com/trade" target="_blank" rel="noopener">Open NovaSwap ↗</a>
+            <a class="secondary-btn" href="https://explorer.svpchain.com" target="_blank" rel="noopener">Explorer ↗</a>
+          </div>
+        </div>
+
+        <div class="hero-logo">
+          <img src="logo.png" alt="GINEUS">
+        </div>
+      </div>
+    </section>
+
     <div class="container">
-
-        <img src="logo.png" class="hero-logo" alt="GINEUS Logo">
-
-        <div class="badge">
-            SVPCHAIN TESTNET ECOSYSTEM
-        </div>
-
-        <h1>
-            Welcome to<br>
-            <span>GINEUS</span>
-        </h1>
-
-        <p>
-            A community-driven Web3 ecosystem built on SVPChain,
-            combining blockchain experimentation, community participation
-            and an evolving points-based ecosystem.
-        </p>
-
-        <div class="hero-buttons">
-            <a class="btn btn-primary" href="#airdrop">
-                Join GINEUS
-            </a>
-
-            <a class="btn btn-secondary"
-               href="https://explorer.svpchain.com"
-               target="_blank">
-                Explorer
-            </a>
-        </div>
-
+      <div class="stats">
+        <div class="stat"><b>10M</b><span>GINEUS Total Supply</span></div>
+        <div class="stat"><b>2517</b><span>SVPChain Testnet ID</span></div>
+        <div class="stat"><b>18</b><span>Token Decimals</span></div>
+        <div class="stat"><b>∞</b><span>Community Potential</span></div>
+      </div>
     </div>
-</header>
 
-
-<!-- TOKEN -->
-<section id="token">
-    <div class="container">
-
-        <div class="section-title">
-            <h2>GINEUS Token</h2>
-            <p>GINEUS Test Token on SVPChain Testnet</p>
+    <section id="dashboard">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Wallet Dashboard</h2>
+            <p>Connect MetaMask to view your SVP and GINEUS balances and activate your GINEUS community profile.</p>
+          </div>
+          <span class="badge">Live Testnet</span>
         </div>
 
-        <div class="token-box">
-
-            <div class="card">
-
-                <div class="info-row">
-                    <span class="info-label">Name</span>
-                    <strong>Gineus Test Token</strong>
-                </div>
-
-                <div class="info-row">
-                    <span class="info-label">Symbol</span>
-                    <strong>GINEUS</strong>
-                </div>
-
-                <div class="info-row">
-                    <span class="info-label">Decimals</span>
-                    <strong>18</strong>
-                </div>
-
-                <div class="info-row">
-                    <span class="info-label">Total Supply</span>
-                    <strong>10,000,000</strong>
-                </div>
-
+        <div class="dashboard">
+          <div class="card wallet-card">
+            <div class="card-title">
+              <h3>Wallet</h3>
+              <span class="badge" id="networkBadge">SVP TESTNET</span>
             </div>
 
-            <div class="card">
-
-                <div class="info-row">
-                    <span class="info-label">Network</span>
-                    <strong>SVPChain Testnet</strong>
-                </div>
-
-                <div class="info-row">
-                    <span class="info-label">Chain ID</span>
-                    <strong>2517</strong>
-                </div>
-
-                <div class="info-row">
-                    <span class="info-label">Contract</span>
-                    <span class="info-value">
-                        0xB5Be...15BE
-                    </span>
-                </div>
-
-                <div style="margin-top:20px;">
-                    <a
-                        class="btn btn-secondary"
-                        href="https://explorer.svpchain.com/address/0xB5Be364100fbBf62f0236382c381ac48CB4a15BE"
-                        target="_blank">
-                        View Contract
-                    </a>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-</section>
-
-
-<!-- WALLET -->
-<section id="wallet">
-    <div class="container">
-
-        <div class="section-title">
-            <h2>Wallet</h2>
-            <p>Connect your MetaMask wallet</p>
-        </div>
-
-        <div class="wallet-panel">
-
-            <div class="wallet-status">
-
-                <div>
-                    <div style="color:#81969b;font-size:13px;margin-bottom:6px;">
-                        Wallet
-                    </div>
-
-                    <div id="walletAddress" class="wallet-address">
-                        Not connected
-                    </div>
-                </div>
-
-                <button class="connect-btn" onclick="connectWallet()">
-                    Connect Wallet
-                </button>
-
-            </div>
+            <div class="wallet-address" id="walletAddress">Not connected</div>
 
             <div class="balance-grid">
-
-                <div class="balance-card">
-                    <small>SVP Balance</small>
-                    <div id="svpBalance" class="balance">
-                        0
-                    </div>
-                </div>
-
-                <div class="balance-card">
-                    <small>GINEUS Balance</small>
-                    <div id="gineusBalance" class="balance">
-                        0
-                    </div>
-                </div>
-
+              <div class="balance">
+                <span>SVP Balance</span>
+                <strong id="svpBalance">0.0000</strong>
+              </div>
+              <div class="balance">
+                <span>GINEUS Balance</span>
+                <strong id="gineusBalance">0.00</strong>
+              </div>
             </div>
 
-            <div id="walletStatus"
-                 class="status-box">
+            <div class="hero-actions" style="margin-top:14px">
+              <button class="secondary-btn" id="switchNetworkBtn">Add / Switch SVPChain</button>
+              <button class="secondary-btn" id="addTokenBtn">Add GINEUS</button>
             </div>
 
-        </div>
+            <div class="status" id="walletStatus">Waiting for wallet connection.</div>
+          </div>
 
-    </div>
-</section>
-
-
-<!-- AIRDROP -->
-<section id="airdrop">
-    <div class="container">
-
-        <div class="section-title">
-            <h2>GINEUS Airdrop Points</h2>
-            <p>Participate in the ecosystem and collect points.</p>
-        </div>
-
-        <div class="airdrop-box">
-
-            <div class="points-header">
-
-                <div class="points-card">
-                    <div style="color:#84999e;">
-                        Your Points
-                    </div>
-
-                    <div id="points"
-                         class="points-number">
-                        0
-                    </div>
-                </div>
-
-                <div class="points-card">
-                    <div style="color:#84999e;">
-                        Referral Code
-                    </div>
-
-                    <div id="referralCode"
-                         class="referral-code">
-                        -
-                    </div>
-                </div>
-
+          <div class="card points-card" id="airdrop">
+            <div class="card-title">
+              <h3>GINEUS Points</h3>
+              <span class="badge">Airdrop System</span>
             </div>
 
+            <div class="points-number" id="pointsValue">0</div>
+            <div class="points-label">Community points</div>
+
+            <div class="ref-row">
+              <input class="ref-input" id="referralCode" readonly value="Connect wallet first">
+              <button class="secondary-btn" id="copyRefBtn">Copy</button>
+            </div>
 
             <div class="task-list">
-
-                <div id="task-connect" class="task done">
-                    <div class="task-left">
-                        <div class="task-icon">✓</div>
-
-                        <div>
-                            <strong>Connect Wallet</strong>
-                            <div class="task-status">
-                                Wallet connection
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="task-points">
-                        +10
-                    </div>
+              <div class="task">
+                <div class="task-info">
+                  <div class="task-icon">✓</div>
+                  <div><h4>Daily Check-in</h4><p>Complete once per UTC day · +10 points</p></div>
                 </div>
+                <button id="dailyTaskBtn" onclick="completeDailyCheckin()">+10</button>
+              </div>
 
-
-                <div class="task">
-                    <div class="task-left">
-                        <div class="task-icon">○</div>
-
-                        <div>
-                            <strong>Daily Check-in</strong>
-                            <div class="task-status">
-                                Coming soon
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="task-points">
-                        +10
-                    </div>
+              <div class="task">
+                <div class="task-info">
+                  <div class="task-icon">◈</div>
+                  <div><h4>Connect Wallet</h4><p>Connect MetaMask to your GINEUS profile · +5 points</p></div>
                 </div>
+                <button id="walletTaskBtn" onclick="completeTask('wallet_connect',5)">+5</button>
+              </div>
 
-
-                <div class="task">
-                    <div class="task-left">
-                        <div class="task-icon">○</div>
-
-                        <div>
-                            <strong>Follow X</strong>
-                            <div class="task-status">
-                                Coming soon
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="task-points">
-                        +5
-                    </div>
+              <div class="task">
+                <div class="task-info">
+                  <div class="task-icon">◎</div>
+                  <div><h4>Visit NovaSwap</h4><p>Explore the GINEUS/SVP market · +5 points</p></div>
                 </div>
+                <button id="swapTaskBtn" onclick="openTaskLink('https://swap.svpstars.com/trade','novaswap',5)">+5</button>
+              </div>
 
-
-                <div class="task">
-                    <div class="task-left">
-                        <div class="task-icon">○</div>
-
-                        <div>
-                            <strong>Join Telegram</strong>
-                            <div class="task-status">
-                                Coming soon
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="task-points">
-                        +5
-                    </div>
+              <div class="task">
+                <div class="task-info">
+                  <div class="task-icon">G</div>
+                  <div><h4>Hold GINEUS</h4><p>Hold at least 1 GINEUS in your wallet · +10 points</p></div>
                 </div>
+                <button id="holdTaskBtn" onclick="completeHoldTask()">Check</button>
+              </div>
 
-
-                <div class="task">
-                    <div class="task-left">
-                        <div class="task-icon">○</div>
-
-                        <div>
-                            <strong>Testnet Swap</strong>
-                            <div class="task-status">
-                                Coming soon
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="task-points">
-                        +20
-                    </div>
+              <div class="task">
+                <div class="task-info">
+                  <div class="task-icon">+</div>
+                  <div><h4>Add GINEUS Token</h4><p>Add the token to MetaMask · +5 points</p></div>
                 </div>
-
-
-                <div class="task">
-                    <div class="task-left">
-                        <div class="task-icon">○</div>
-
-                        <div>
-                            <strong>Liquidity</strong>
-                            <div class="task-status">
-                                Coming soon
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="task-points">
-                        +30
-                    </div>
-                </div>
-
+                <button id="addTaskBtn" onclick="addTokenAndTask()">+5</button>
+              </div>
             </div>
 
+            <div class="status" id="profileStatus">Firebase profile will appear after wallet connection.</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <div id="profileStatus"
-                 class="status-box">
-            </div>
-
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>GINEUS Ecosystem</h2>
+            <p>A simple foundation for community participation, testnet activity and future on-chain utilities.</p>
+          </div>
         </div>
 
-    </div>
-</section>
+        <div class="cards-3">
+          <div class="card info-card">
+            <div class="icon-box">🧠</div>
+            <h3>Genius Community</h3>
+            <p>Build a recognizable community around the GINEUS brain + G identity and reward useful participation.</p>
+          </div>
+          <div class="card info-card">
+            <div class="icon-box">⚡</div>
+            <h3>Testnet First</h3>
+            <p>Experiment with wallets, token transfers, liquidity and ecosystem activity on SVPChain Testnet.</p>
+          </div>
+          <div class="card info-card">
+            <div class="icon-box">🔗</div>
+            <h3>On-chain Ready</h3>
+            <p>The dashboard is designed so future verified tasks and claim systems can be added without rebuilding the front end.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <section id="token">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>GINEUS Token</h2>
+            <p>Current testnet token information.</p>
+          </div>
+        </div>
 
-<!-- ROADMAP -->
-<section id="roadmap">
-    <div class="container">
+        <div class="token-grid">
+          <div class="card token-card">
+            <div class="token-row"><span>Name</span><strong>Gineus Test Token</strong></div>
+            <div class="token-row"><span>Symbol</span><strong>GINEUS</strong></div>
+            <div class="token-row"><span>Total Supply</span><strong>10,000,000 GINEUS</strong></div>
+            <div class="token-row"><span>Decimals</span><strong>18</strong></div>
+            <div class="token-row"><span>Network</span><strong>SVPChain Testnet</strong></div>
+          </div>
 
-        <div class="section-title">
+          <div class="card token-card">
+            <div class="token-row"><span>Contract</span><strong class="mono">0xB5Be...15BE</strong></div>
+            <div class="token-row"><span>Chain ID</span><strong>2517 / 0x9D5</strong></div>
+            <div class="token-row"><span>DEX</span><strong>NovaSwap</strong></div>
+            <div class="token-row"><span>Explorer</span><strong><a href="https://explorer.svpchain.com" target="_blank" rel="noopener">Open Explorer ↗</a></strong></div>
+            <div class="token-row"><span>Status</span><strong style="color:var(--green)">Testnet Live</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roadmap">
+      <div class="container">
+        <div class="section-head">
+          <div>
             <h2>Roadmap</h2>
-            <p>Building GINEUS step by step</p>
+            <p>Development direction — milestones may change as the ecosystem grows.</p>
+          </div>
         </div>
 
         <div class="roadmap">
-
-            <div class="road">
-                <div class="road-phase">PHASE 01</div>
-                <div>
-                    <h3>Foundation</h3>
-                    <p>
-                        GINEUS identity, token deployment,
-                        website and initial SVPChain testnet ecosystem.
-                    </p>
-                </div>
-            </div>
-
-            <div class="road">
-                <div class="road-phase">PHASE 02</div>
-                <div>
-                    <h3>Community</h3>
-                    <p>
-                        Points system, daily participation,
-                        referrals and community activities.
-                    </p>
-                </div>
-            </div>
-
-            <div class="road">
-                <div class="road-phase">PHASE 03</div>
-                <div>
-                    <h3>Ecosystem</h3>
-                    <p>
-                        Testnet activities, liquidity participation,
-                        community campaigns and ecosystem expansion.
-                    </p>
-                </div>
-            </div>
-
-            <div class="road">
-                <div class="road-phase">PHASE 04</div>
-                <div>
-                    <h3>Future</h3>
-                    <p>
-                        Further development will depend on ecosystem
-                        growth, community participation and SVPChain development.
-                    </p>
-                </div>
-            </div>
-
+          <div class="phase"><small>PHASE 01</small><h3>Foundation</h3><p>Brand, token, testnet deployment, website and wallet connection.</p></div>
+          <div class="phase"><small>PHASE 02</small><h3>Community Points</h3><p>Daily check-ins, tasks, referrals and participation tracking.</p></div>
+          <div class="phase"><small>PHASE 03</small><h3>On-chain Growth</h3><p>More verified testnet activities, liquidity and ecosystem integrations.</p></div>
+          <div class="phase"><small>PHASE 04</small><h3>Claim Infrastructure</h3><p>Explore a future verified claim / distribution mechanism based on finalized eligibility rules.</p></div>
         </div>
+      </div>
+    </section>
+  </main>
 
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="logo.png" alt="GINEUS">
+        <span>GINEUS — Street Brew Revolution</span>
+      </div>
+      <div>Built for SVPChain Testnet · Community project</div>
     </div>
-</section>
+  </footer>
 
-
-<footer>
-    <div class="container">
-        © 2026 GINEUS. Built on SVPChain Testnet.
+  <div class="modal" id="modal">
+    <div class="modal-box">
+      <h3 id="modalTitle">GINEUS</h3>
+      <p id="modalText"></p>
+      <div class="modal-actions">
+        <button class="secondary-btn" onclick="closeModal()">Close</button>
+      </div>
     </div>
-</footer>
+  </div>
 
+  <script>
+    /* =========================================================
+       GINEUS CONFIG
+       ========================================================= */
 
-<script>
+    const GINEUS_CONTRACT = "0xB5Be364100fbBf62f0236382c381ac48CB4a15BE";
+    const CHAIN_ID_HEX = "0x9D5";
+    const CHAIN_ID_DEC = 2517;
 
-/* =========================================================
-   GINEUS CONFIGURATION
-========================================================= */
+    const SVP_RPC = "https://svp-dataseed1-testnet.svpchain.org";
+    const SVP_EXPLORER = "https://explorer.svpchain.com";
+    const NOVASWAP_URL = "https://swap.svpstars.com/trade";
 
-const GINEUS_CONTRACT =
-"0xB5Be364100fbBf62f0236382c381ac48CB4a15BE";
+    const firebaseConfig = {
+      apiKey: "AIzaSyA64xBKZytuONKW_V0z5fYJCy2e_o1X__s",
+      authDomain: "gineus-4fda9.firebaseapp.com",
+      projectId: "gineus-4fda9",
+      storageBucket: "gineus-4fda9.firebasestorage.app",
+      messagingSenderId: "176483341413",
+      appId: "1:176483341413:web:4e501c980dd79e355d628c"
+    };
 
-const CHAIN_ID = "0x9D5";
+    firebase.initializeApp(firebaseConfig);
 
-const RPC_URL =
-"https://svp-dataseed1-testnet.svpchain.org";
-
-const SUPABASE_URL =
-"https://nlccxyfskfljbykcacfg.supabase.co";
-
-/*
-   PASTE YOUR SUPABASE PUBLISHABLE KEY BELOW
-*/
-const SUPABASE_PUBLISHABLE_KEY =
-"sb_publishable_cSd1xT-AghVMui95_RSMnA_uR5UJZjA";
-
-
-const supabaseClient =
-window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-);
-
-
-/* =========================================================
-   CONTRACT
-========================================================= */
-
-const tokenABI = [
-    "function balanceOf(address owner) view returns (uint256)",
-    "function decimals() view returns (uint8)"
-];
-
-
-/* =========================================================
-   GLOBAL
-========================================================= */
-
-let provider = null;
-let signer = null;
-let currentWallet = null;
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-function showStatus(elementId, message, type = "") {
-
-    const el = document.getElementById(elementId);
-
-    if (!el) return;
-
-    el.innerText = message;
-    el.className = "status-box show " + type;
-}
-
-
-/* =========================================================
-   FORMAT WALLET
-========================================================= */
-
-function shortAddress(address) {
-
-    return address.slice(0, 6) +
-        "..." +
-        address.slice(-4);
-}
-
-
-/* =========================================================
-   GENERATE REFERRAL CODE
-========================================================= */
-
-function generateReferralCode(wallet) {
-
-    return "GIN-" +
-        wallet
-        .replace("0x", "")
-        .substring(0, 8)
-        .toUpperCase();
-
-}
-
-
-/* =========================================================
-   CONNECT WALLET
-========================================================= */
-
-async function connectWallet() {
-
-    if (!window.ethereum) {
-
-        alert(
-            "MetaMask belum terpasang. Silakan install MetaMask terlebih dahulu."
-        );
-
-        return;
-    }
+    const auth = firebase.auth();
+    const db = firebase.firestore();
 
     try {
+      if (firebase.analytics) firebase.analytics();
+    } catch (e) {
+      console.warn("Analytics unavailable:", e);
+    }
 
-        showStatus(
-            "walletStatus",
-            "Connecting wallet..."
-        );
+    const tokenAbi = [
+      "function balanceOf(address) view returns (uint256)",
+      "function decimals() view returns (uint8)"
+    ];
 
-        provider =
-            new ethers.providers.Web3Provider(
-                window.ethereum,
-                "any"
-            );
+    let provider = null;
+    let signer = null;
+    let currentWallet = null;
+    let currentFirebaseUser = null;
+    let profileRef = null;
+    let profileData = null;
 
-        await provider.send(
-            "eth_requestAccounts",
-            []
-        );
+    /* =========================================================
+       HELPERS
+       ========================================================= */
 
-        const network =
-            await provider.getNetwork();
+    const $ = (id) => document.getElementById(id);
 
+    function setStatus(id, text, type = "") {
+      const el = $(id);
+      if (!el) return;
+      el.textContent = text;
+      el.className = "status" + (type ? " " + type : "");
+    }
 
-        /* SWITCH NETWORK */
+    function shortAddress(address) {
+      if (!address) return "Not connected";
+      return address.slice(0, 7) + "..." + address.slice(-5);
+    }
 
-        if (network.chainId !== 2517) {
+    function todayKey() {
+      return new Date().toISOString().slice(0, 10);
+    }
 
-            try {
+    function referralFromWallet(wallet) {
+      return "GIN-" + wallet.replace(/^0x/i, "").slice(0, 8).toUpperCase();
+    }
 
-                await window.ethereum.request({
-                    method: "wallet_switchEthereumChain",
-                    params: [
-                        {
-                            chainId: CHAIN_ID
-                        }
-                    ]
-                });
+    function showModal(title, text) {
+      $("modalTitle").textContent = title;
+      $("modalText").textContent = text;
+      $("modal").classList.add("show");
+    }
 
-            } catch (switchError) {
+    function closeModal() {
+      $("modal").classList.remove("show");
+    }
 
-                if (
-                    switchError.code === 4902 ||
-                    switchError.code === -32603
-                ) {
+    function scrollToSection(id) {
+      document.getElementById(id)?.scrollIntoView({behavior:"smooth"});
+    }
 
-                    await window.ethereum.request({
-                        method: "wallet_addEthereumChain",
-                        params: [
-                            {
-                                chainId: CHAIN_ID,
-                                chainName: "SVPChain Testnet",
-                                nativeCurrency: {
-                                    name: "SVP",
-                                    symbol: "SVP",
-                                    decimals: 18
-                                },
-                                rpcUrls: [
-                                    RPC_URL
-                                ],
-                                blockExplorerUrls: [
-                                    "https://explorer.svpchain.com"
-                                ]
-                            }
-                        ]
-                    });
+    function requireWallet() {
+      if (!currentWallet || !currentFirebaseUser) {
+        showModal("Connect wallet", "Connect MetaMask first so GINEUS can create your community profile.");
+        return false;
+      }
+      return true;
+    }
 
-                } else {
+    function setTaskDone(taskCode, done = true) {
+      const map = {
+        daily: "dailyTaskBtn",
+        wallet_connect: "walletTaskBtn",
+        novaswap: "swapTaskBtn",
+        hold_gineus: "holdTaskBtn",
+        add_token: "addTaskBtn"
+      };
+      const el = $(map[taskCode]);
+      if (!el) return;
+      if (done) {
+        el.textContent = "Done ✓";
+        el.classList.add("done");
+        el.disabled = true;
+      }
+    }
 
-                    throw switchError;
+    /* =========================================================
+       FIREBASE AUTH
+       ========================================================= */
 
-                }
+    auth.onAuthStateChanged(async (user) => {
+      currentFirebaseUser = user;
 
-            }
-
-            provider =
-                new ethers.providers.Web3Provider(
-                    window.ethereum,
-                    "any"
-                );
+      if (!user) {
+        try {
+          await auth.signInAnonymously();
+        } catch (error) {
+          console.error(error);
+          setStatus("profileStatus", "Firebase Anonymous Auth error: " + error.message, "err");
         }
+        return;
+      }
 
-
-        signer =
-            provider.getSigner();
-
-        currentWallet =
-            await signer.getAddress();
-
-        currentWallet =
-            currentWallet.toLowerCase();
-
-
-        document.getElementById(
-            "walletAddress"
-        ).innerText =
-            shortAddress(currentWallet);
-
-
-        await loadBalances();
-
+      if (currentWallet) {
         await ensureProfile();
+      }
+    });
 
+    async function ensureAnonymousAuth() {
+      if (auth.currentUser) {
+        currentFirebaseUser = auth.currentUser;
+        return auth.currentUser;
+      }
 
-        showStatus(
-            "walletStatus",
-            "Wallet connected successfully.",
-            "success"
-        );
-
-    } catch (error) {
-
-        console.error(
-            "CONNECT ERROR:",
-            error
-        );
-
-        showStatus(
-            "walletStatus",
-            "Connection error: " +
-            (error.message || error),
-            "error"
-        );
-
+      const result = await auth.signInAnonymously();
+      currentFirebaseUser = result.user;
+      return result.user;
     }
 
-}
+    /* =========================================================
+       FIRESTORE PROFILE
+       ========================================================= */
 
+    async function ensureProfile() {
+      if (!currentWallet) return;
+      const user = await ensureAnonymousAuth();
+      if (!user) return;
 
-/* =========================================================
-   LOAD BALANCES
-========================================================= */
+      profileRef = db.collection("profiles").doc(user.uid);
 
-async function loadBalances() {
+      try {
+        const snap = await profileRef.get();
 
-    try {
+        if (!snap.exists) {
+          const code = referralFromWallet(currentWallet);
 
-        if (!provider || !currentWallet)
-            return;
+          profileData = {
+            wallet: currentWallet.toLowerCase(),
+            points: 0,
+            referralCode: code,
+            referredBy: getReferralParam() || null,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          };
 
+          await profileRef.set(profileData);
+        } else {
+          profileData = snap.data();
 
-        const balance =
-            await provider.getBalance(
-                currentWallet
-            );
+          if ((profileData.wallet || "").toLowerCase() !== currentWallet.toLowerCase()) {
+            await profileRef.update({
+              wallet: currentWallet.toLowerCase(),
+              updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            profileData.wallet = currentWallet.toLowerCase();
+          }
+        }
 
-        document.getElementById(
-            "svpBalance"
-        ).innerText =
-            parseFloat(
-                ethers.utils.formatEther(balance)
-            ).toFixed(4);
+        renderProfile();
+        await loadCompletedTasks();
 
-
-        const token =
-            new ethers.Contract(
-                GINEUS_CONTRACT,
-                tokenABI,
-                provider
-            );
-
-
-        const tokenBalance =
-            await token.balanceOf(
-                currentWallet
-            );
-
-
-        document.getElementById(
-            "gineusBalance"
-        ).innerText =
-            Number(
-                ethers.utils.formatUnits(
-                    tokenBalance,
-                    18
-                )
-            ).toLocaleString();
-
-
-    } catch (error) {
-
-        console.error(
-            "BALANCE ERROR:",
-            error
+        setStatus(
+          "profileStatus",
+          "Firebase profile connected successfully.",
+          "ok"
         );
-
+      } catch (error) {
+        console.error("PROFILE ERROR:", error);
+        setStatus(
+          "profileStatus",
+          "Firestore error: " + (error.message || "Unable to load profile."),
+          "err"
+        );
+      }
     }
 
-}
+    function renderProfile() {
+      const points = Number(profileData?.points || 0);
+      $("pointsValue").textContent = points.toLocaleString("en-US");
 
+      $("referralCode").value = profileData?.referralCode || "-";
+    }
 
-/* =========================================================
-   ENSURE PROFILE
-========================================================= */
+    function getReferralParam() {
+      const params = new URLSearchParams(window.location.search);
+      const ref = params.get("ref");
+      return ref ? ref.trim().toUpperCase() : "";
+    }
 
-async function ensureProfile() {
+    async function loadCompletedTasks() {
+      if (!currentFirebaseUser) return;
 
-    if (!currentWallet)
+      try {
+        const snap = await db.collection("task_completions")
+          .where("userId", "==", currentFirebaseUser.uid)
+          .get();
+
+        snap.forEach(doc => {
+          const data = doc.data();
+          if (data.taskCode === "wallet_connect") setTaskDone("wallet_connect");
+          if (data.taskCode === "novaswap") setTaskDone("novaswap");
+          if (data.taskCode === "hold_gineus") setTaskDone("hold_gineus");
+          if (data.taskCode === "add_token") setTaskDone("add_token");
+          if (data.taskCode && data.taskCode.startsWith("daily-")) setTaskDone("daily");
+        });
+      } catch (error) {
+        console.warn("Task read error:", error);
+      }
+    }
+
+    async function completeTask(taskCode, points) {
+      if (!requireWallet()) return;
+
+      const user = currentFirebaseUser;
+      const taskRef = db.collection("task_completions")
+        .doc(user.uid + "_" + taskCode);
+
+      try {
+        await db.runTransaction(async (transaction) => {
+          const taskSnap = await transaction.get(taskRef);
+          const profileSnap = await transaction.get(profileRef);
+
+          if (taskSnap.exists) return;
+
+          const oldPoints = Number(profileSnap.data()?.points || 0);
+
+          transaction.set(taskRef, {
+            userId: user.uid,
+            wallet: currentWallet.toLowerCase(),
+            taskCode,
+            points,
+            completedAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+
+          transaction.update(profileRef, {
+            points: oldPoints + points,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+        });
+
+        await refreshProfile();
+        setTaskDone(taskCode);
+        setStatus("profileStatus", "+" + points + " points added.", "ok");
+      } catch (error) {
+        console.error(error);
+        setStatus("profileStatus", "Task error: " + error.message, "err");
+      }
+    }
+
+    async function completeDailyCheckin() {
+      if (!requireWallet()) return;
+
+      const taskCode = "daily-" + todayKey();
+      await completeTask(taskCode, 10);
+      setTaskDone("daily");
+    }
+
+    async function refreshProfile() {
+      if (!profileRef) return;
+      const snap = await profileRef.get();
+      if (snap.exists) {
+        profileData = snap.data();
+        renderProfile();
+      }
+    }
+
+    /* =========================================================
+       META MASK / SVPCHAIN
+       ========================================================= */
+
+    async function connectWallet() {
+      if (!window.ethereum) {
+        showModal("MetaMask required", "Please install MetaMask to connect to GINEUS.");
         return;
+      }
 
+      try {
+        setStatus("walletStatus", "Connecting wallet...");
 
-    showStatus(
-        "profileStatus",
-        "Checking GINEUS profile..."
-    );
+        provider = new ethers.providers.Web3Provider(window.ethereum, "any");
 
+        await provider.send("eth_requestAccounts", []);
 
-    try {
+        const network = await provider.getNetwork();
 
-        /*
-         * STEP 1
-         * Check whether wallet already exists.
-         */
-
-        const existing =
-            await supabaseClient
-                .from("profiles")
-                .select(
-                    "wallet, points, referral_code"
-                )
-                .eq(
-                    "wallet",
-                    currentWallet
-                )
-                .maybeSingle();
-
-
-        if (existing.error) {
-
-            console.error(
-                "PROFILE SELECT ERROR:",
-                existing.error
-            );
-
-            throw existing.error;
+        if (Number(network.chainId) !== CHAIN_ID_DEC) {
+          await switchToSVP();
         }
 
+        provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+        signer = provider.getSigner();
 
-        /*
-         * STEP 2
-         * Existing profile
-         */
+        currentWallet = await signer.getAddress();
 
-        if (existing.data) {
+        $("walletAddress").textContent = shortAddress(currentWallet);
+        $("connectBtn").textContent = shortAddress(currentWallet);
+        $("connectBtn").classList.add("connected");
 
-            console.log(
-                "Existing profile:",
-                existing.data
-            );
+        setStatus("walletStatus", "Wallet connected to SVPChain Testnet.", "ok");
 
+        await ensureAnonymousAuth();
+        await ensureProfile();
+        await updateBalances();
 
-            document.getElementById(
-                "points"
-            ).innerText =
-                existing.data.points || 0;
-
-
-            document.getElementById(
-                "referralCode"
-            ).innerText =
-                existing.data.referral_code;
-
-
-            showStatus(
-                "profileStatus",
-                "Profile loaded successfully.",
-                "success"
-            );
-
-            return;
+        // Award wallet task once.
+        const walletTaskBtn = $("walletTaskBtn");
+        if (walletTaskBtn && !walletTaskBtn.classList.contains("done")) {
+          await completeTask("wallet_connect", 5);
         }
 
-
-        /*
-         * STEP 3
-         * Create new profile
-         */
-
-        const referralCode =
-            generateReferralCode(
-                currentWallet
-            );
-
-
-        console.log(
-            "Creating profile:",
-            {
-                wallet: currentWallet,
-                points: 0,
-                referral_code: referralCode
-            }
-        );
-
-
-        const inserted =
-            await supabaseClient
-                .from("profiles")
-                .insert([
-                    {
-                        wallet: currentWallet,
-                        points: 0,
-                        referral_code: referralCode
-                    }
-                ])
-                .select(
-                    "wallet, points, referral_code"
-                )
-                .single();
-
-
-        if (inserted.error) {
-
-            console.error(
-                "PROFILE INSERT ERROR:",
-                inserted.error
-            );
-
-            /*
-             * If another request already created
-             * the profile, try loading it again.
-             */
-
-            const retry =
-                await supabaseClient
-                    .from("profiles")
-                    .select(
-                        "wallet, points, referral_code"
-                    )
-                    .eq(
-                        "wallet",
-                        currentWallet
-                    )
-                    .maybeSingle();
-
-
-            if (retry.data) {
-
-                document.getElementById(
-                    "points"
-                ).innerText =
-                    retry.data.points || 0;
-
-
-                document.getElementById(
-                    "referralCode"
-                ).innerText =
-                    retry.data.referral_code;
-
-
-                showStatus(
-                    "profileStatus",
-                    "Profile loaded.",
-                    "success"
-                );
-
-                return;
-            }
-
-
-            throw inserted.error;
-        }
-
-
-        /*
-         * STEP 4
-         * Display new profile
-         */
-
-        console.log(
-            "Profile created:",
-            inserted.data
-        );
-
-
-        document.getElementById(
-            "points"
-        ).innerText =
-            inserted.data.points || 0;
-
-
-        document.getElementById(
-            "referralCode"
-        ).innerText =
-            inserted.data.referral_code;
-
-
-        showStatus(
-            "profileStatus",
-            "GINEUS profile created successfully.",
-            "success"
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            "PROFILE ERROR:",
-            error
-        );
-
-
-        document.getElementById(
-            "referralCode"
-        ).innerText =
-            "ERROR";
-
-
-        showStatus(
-            "profileStatus",
-            "Supabase error: " +
-            (error.message || error),
-            "error"
-        );
-
+      } catch (error) {
+        console.error("CONNECT ERROR:", error);
+        setStatus("walletStatus", error.message || "Wallet connection failed.", "err");
+      }
     }
 
-}
+    async function switchToSVP() {
+      const params = {
+        chainId: CHAIN_ID_HEX,
+        chainName: "SVPChain Testnet",
+        nativeCurrency: {
+          name: "SVP",
+          symbol: "SVP",
+          decimals: 18
+        },
+        rpcUrls: [SVP_RPC],
+        blockExplorerUrls: [SVP_EXPLORER]
+      };
 
+      try {
+        await window.ethereum.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: CHAIN_ID_HEX }]
+        });
+      } catch (switchError) {
+        if (switchError.code === 4902 || switchError.code === -32603) {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [params]
+          });
+        } else {
+          throw switchError;
+        }
+      }
+    }
 
-/* =========================================================
-   META MASK ACCOUNT CHANGE
-========================================================= */
+    async function updateBalances() {
+      if (!provider || !currentWallet) return;
 
-if (window.ethereum) {
+      try {
+        const network = await provider.getNetwork();
 
-    window.ethereum.on(
-        "accountsChanged",
-        function(accounts) {
+        if (Number(network.chainId) !== CHAIN_ID_DEC) {
+          $("svpBalance").textContent = "Wrong network";
+          $("gineusBalance").textContent = "Wrong network";
+          return;
+        }
 
-            if (accounts.length === 0) {
+        const svp = await provider.getBalance(currentWallet);
+        $("svpBalance").textContent = Number(
+          ethers.utils.formatEther(svp)
+        ).toFixed(4);
 
-                currentWallet = null;
+        const token = new ethers.Contract(GINEUS_CONTRACT, tokenAbi, provider);
+        const raw = await token.balanceOf(currentWallet);
+        const formatted = ethers.utils.formatUnits(raw, 18);
 
-                document.getElementById(
-                    "walletAddress"
-                ).innerText =
-                    "Not connected";
+        const number = Number(formatted);
+        $("gineusBalance").textContent =
+          number.toLocaleString("en-US", {maximumFractionDigits: 2});
 
-                document.getElementById(
-                    "referralCode"
-                ).innerText =
-                    "-";
+      } catch (error) {
+        console.error("BALANCE ERROR:", error);
+        setStatus("walletStatus", "Unable to read wallet balances.", "err");
+      }
+    }
 
-                document.getElementById(
-                    "points"
-                ).innerText =
-                    "0";
+    async function addToken() {
+      if (!window.ethereum) {
+        showModal("MetaMask required", "Install MetaMask first.");
+        return false;
+      }
 
-            } else {
-
-                connectWallet();
-
+      try {
+        const added = await window.ethereum.request({
+          method: "wallet_watchAsset",
+          params: {
+            type: "ERC20",
+            options: {
+              address: GINEUS_CONTRACT,
+              symbol: "GINEUS",
+              decimals: 18,
+              image: new URL("logo.png", window.location.href).href
             }
+          }
+        });
 
+        return Boolean(added);
+      } catch (error) {
+        console.error("ADD TOKEN ERROR:", error);
+        return false;
+      }
+    }
+
+    async function addTokenAndTask() {
+      if (!requireWallet()) return;
+
+      const added = await addToken();
+
+      if (added) {
+        await completeTask("add_token", 5);
+      } else {
+        setStatus("walletStatus", "Token was not added.", "");
+      }
+    }
+
+    async function completeHoldTask() {
+      if (!requireWallet()) return;
+
+      if (!provider) {
+        provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+      }
+
+      try {
+        const token = new ethers.Contract(GINEUS_CONTRACT, tokenAbi, provider);
+        const raw = await token.balanceOf(currentWallet);
+
+        if (raw.gt(0)) {
+          await completeTask("hold_gineus", 10);
+        } else {
+          showModal(
+            "No GINEUS detected",
+            "Your connected wallet currently holds 0 GINEUS. Add or receive at least 1 GINEUS, then check again."
+          );
         }
-    );
+      } catch (error) {
+        console.error(error);
+        setStatus("walletStatus", "Could not verify GINEUS balance.", "err");
+      }
+    }
 
+    function openTaskLink(url, taskCode, points) {
+      if (!requireWallet()) return;
 
-    window.ethereum.on(
-        "chainChanged",
-        function() {
+      window.open(url, "_blank", "noopener,noreferrer");
 
-            window.location.reload();
+      // Award after the link is opened. This is an MVP task model,
+      // not cryptographic proof of off-chain activity.
+      setTimeout(() => completeTask(taskCode, points), 500);
+    }
 
+    /* =========================================================
+       REFERRAL
+       ========================================================= */
+
+    async function copyReferral() {
+      if (!requireWallet()) return;
+
+      const code = profileData?.referralCode || "";
+      if (!code) return;
+
+      const link = window.location.origin + window.location.pathname + "?ref=" + encodeURIComponent(code);
+
+      try {
+        await navigator.clipboard.writeText(link);
+        setStatus("profileStatus", "Referral link copied.", "ok");
+      } catch {
+        showModal("Referral link", link);
+      }
+    }
+
+    /* =========================================================
+       EVENTS
+       ========================================================= */
+
+    $("connectBtn").addEventListener("click", connectWallet);
+
+    $("switchNetworkBtn").addEventListener("click", async () => {
+      try {
+        await switchToSVP();
+        if (currentWallet) {
+          provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+          await updateBalances();
+          setStatus("walletStatus", "SVPChain Testnet selected.", "ok");
         }
-    );
+      } catch (error) {
+        setStatus("walletStatus", error.message || "Could not switch network.", "err");
+      }
+    });
 
-}
+    $("addTokenBtn").addEventListener("click", addToken);
+    $("copyRefBtn").addEventListener("click", copyReferral);
 
-</script>
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", async (accounts) => {
+        if (!accounts.length) {
+          currentWallet = null;
+          $("walletAddress").textContent = "Not connected";
+          $("connectBtn").textContent = "Connect Wallet";
+          $("connectBtn").classList.remove("connected");
+          return;
+        }
 
+        await connectWallet();
+      });
+
+      window.ethereum.on("chainChanged", async () => {
+        provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+        if (currentWallet) await updateBalances();
+      });
+    }
+
+    // If MetaMask is already connected, hydrate the UI.
+    (async () => {
+      if (!window.ethereum) return;
+
+      try {
+        const accounts = await window.ethereum.request({method:"eth_accounts"});
+        if (accounts.length) {
+          await connectWallet();
+        }
+      } catch (error) {
+        console.warn(error);
+      }
+    })();
+  </script>
 </body>
 </html>
