@@ -1,1127 +1,2482 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GINEUS — Web3 Community</title>
-<meta name="description" content="GINEUS — A community-driven Web3 token ecosystem on SVPChain.">
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>GINEUS — Web3 Ecosystem</title>
+
+<meta name="description"
+content="GINEUS is a community-driven Web3 ecosystem built on SVPChain.">
 
 <style>
-:root {
-    --cyan: #0097B2;
-    --cyan-light: #20d9f5;
-    --dark: #050b10;
-    --dark2: #08141b;
-    --card: rgba(11, 29, 38, 0.75);
-    --white: #ffffff;
-    --muted: #91a4ad;
-    --border: rgba(0,151,178,.25);
+
+:root{
+    --cyan:#0097B2;
+    --cyan2:#19d8f2;
+    --dark:#03080c;
+    --dark2:#07131a;
+    --card:rgba(10,25,33,.78);
+    --white:#ffffff;
+    --muted:#91a5ae;
+    --border:rgba(0,151,178,.25);
+    --green:#35e88b;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-html {
-    scroll-behavior: smooth;
+html{
+    scroll-behavior:smooth;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
+body{
+    font-family:Arial,Helvetica,sans-serif;
     background:
-        radial-gradient(circle at 50% 0%, rgba(0,151,178,.18), transparent 35%),
-        var(--dark);
-    color: var(--white);
-    overflow-x: hidden;
+    radial-gradient(
+        circle at 50% -10%,
+        rgba(0,151,178,.25),
+        transparent 38%
+    ),
+    var(--dark);
+
+    color:white;
+    overflow-x:hidden;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
+a{
+    text-decoration:none;
+    color:inherit;
 }
 
-/* NAVBAR */
-
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 7%;
-    background: rgba(5,11,16,.75);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(255,255,255,.05);
-    z-index: 100;
+button{
+    font-family:inherit;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 22px;
-    font-weight: 900;
-    letter-spacing: 2px;
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+
+    height:72px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 6%;
+
+    background:rgba(3,8,12,.82);
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+    z-index:999;
 }
 
-.logo-mark {
-    width: 38px;
-    height: 38px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--cyan-light), var(--cyan));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #001217;
-    font-size: 24px;
-    font-weight: 900;
-    box-shadow: 0 0 25px rgba(0,151,178,.45);
+
+.nav-brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:21px;
+
+    font-weight:900;
+
+    letter-spacing:2px;
 }
 
-.nav-links {
-    display: flex;
-    gap: 28px;
-    color: var(--muted);
-    font-size: 14px;
-}
 
-.nav-links a:hover {
-    color: var(--cyan-light);
-}
+.nav-logo{
 
-.connect-btn {
-    border: none;
-    background: linear-gradient(135deg, var(--cyan-light), var(--cyan));
-    color: #001217;
-    padding: 11px 18px;
-    border-radius: 12px;
-    font-weight: 800;
-    cursor: pointer;
-    transition: .2s;
-}
+    width:42px;
 
-.connect-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0,151,178,.35);
-}
+    height:42px;
 
-/* HERO */
+    border-radius:11px;
 
-.hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 120px 20px 80px;
-    position: relative;
-}
+    overflow:hidden;
 
-.hero-content {
-    max-width: 900px;
-}
+    background:#000;
 
-.badge {
-    display: inline-block;
-    padding: 8px 15px;
-    border: 1px solid var(--border);
-    border-radius: 30px;
-    color: var(--cyan-light);
-    background: rgba(0,151,178,.07);
-    font-size: 13px;
-    margin-bottom: 25px;
-}
+    display:flex;
 
-.hero-logo {
-    width: 110px;
-    height: 110px;
-    margin: auto;
-    border-radius: 32px;
-    background: linear-gradient(145deg, #20d9f5, #006f84);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 72px;
-    font-weight: 900;
-    color: #001217;
+    align-items:center;
+
+    justify-content:center;
+
     box-shadow:
-        0 0 35px rgba(0,151,178,.45),
-        inset 0 0 20px rgba(255,255,255,.15);
+    0 0 20px rgba(0,151,178,.35);
 }
 
-h1 {
-    font-size: clamp(55px, 10vw, 105px);
-    line-height: .95;
-    margin-top: 28px;
-    letter-spacing: -5px;
+
+.nav-logo img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
 }
 
-.gradient {
-    background: linear-gradient(90deg, #ffffff, var(--cyan-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+
+.nav-links{
+
+    display:flex;
+
+    gap:28px;
+
+    color:var(--muted);
+
+    font-size:14px;
 }
 
-.hero p {
-    max-width: 650px;
-    margin: 25px auto;
-    color: var(--muted);
-    font-size: 18px;
-    line-height: 1.7;
+
+.nav-links a:hover{
+
+    color:var(--cyan2);
 }
 
-.hero-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: 30px;
+
+.connect-btn{
+
+    border:0;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--cyan2),
+        var(--cyan)
+    );
+
+    color:#001116;
+
+    padding:11px 18px;
+
+    border-radius:12px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s;
 }
+
+
+.connect-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 8px 30px rgba(0,151,178,.35);
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:
+    120px
+    20px
+    80px;
+
+    position:relative;
+}
+
+
+.hero-content{
+
+    max-width:900px;
+
+    width:100%;
+}
+
+
+.badge{
+
+    display:inline-block;
+
+    padding:8px 15px;
+
+    border:
+    1px solid var(--border);
+
+    border-radius:30px;
+
+    color:var(--cyan2);
+
+    background:
+    rgba(0,151,178,.07);
+
+    font-size:13px;
+
+    margin-bottom:28px;
+}
+
+
+.hero-logo{
+
+    width:180px;
+
+    height:180px;
+
+    margin:auto;
+
+    border-radius:35px;
+
+    overflow:hidden;
+
+    background:#000;
+
+    box-shadow:
+    0 0 45px rgba(0,151,178,.35);
+
+}
+
+
+.hero-logo img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+}
+
+
+h1{
+
+    font-size:
+    clamp(
+        55px,
+        10vw,
+        105px
+    );
+
+    line-height:.95;
+
+    margin-top:30px;
+
+    letter-spacing:-5px;
+}
+
+
+.gradient{
+
+    background:
+    linear-gradient(
+        90deg,
+        #ffffff,
+        var(--cyan2)
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+}
+
+
+.hero p{
+
+    max-width:650px;
+
+    margin:25px auto;
+
+    color:var(--muted);
+
+    font-size:18px;
+
+    line-height:1.7;
+}
+
+
+.hero-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    margin-top:30px;
+}
+
 
 .primary-btn,
-.secondary-btn {
-    padding: 14px 24px;
-    border-radius: 13px;
-    font-weight: 800;
-    cursor: pointer;
-    border: none;
+.secondary-btn{
+
+    padding:14px 24px;
+
+    border-radius:13px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    border:none;
+
+    display:inline-block;
 }
 
-.primary-btn {
-    background: var(--cyan);
-    color: white;
+
+.primary-btn{
+
+    background:var(--cyan);
+
+    color:white;
 }
 
-.secondary-btn {
-    background: rgba(255,255,255,.05);
-    border: 1px solid rgba(255,255,255,.12);
-    color: white;
+
+.primary-btn:hover{
+
+    background:var(--cyan2);
+
+    color:#001116;
 }
 
-/* SECTIONS */
 
-section {
-    padding: 100px 7%;
-    max-width: 1250px;
-    margin: auto;
-}
+.secondary-btn{
 
-.section-title {
-    text-align: center;
-    margin-bottom: 50px;
-}
-
-.section-title h2 {
-    font-size: 42px;
-    margin-bottom: 12px;
-}
-
-.section-title p {
-    color: var(--muted);
-}
-
-/* CARDS */
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 28px;
-    backdrop-filter: blur(10px);
-    transition: .25s;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(0,217,245,.5);
-}
-
-.card-icon {
-    font-size: 30px;
-    margin-bottom: 18px;
-}
-
-.card h3 {
-    margin-bottom: 10px;
-}
-
-.card p {
-    color: var(--muted);
-    line-height: 1.6;
-}
-
-/* TOKEN */
-
-.token-box {
     background:
-        linear-gradient(135deg, rgba(0,151,178,.14), rgba(0,0,0,.2));
-    border: 1px solid var(--border);
-    border-radius: 25px;
-    padding: 40px;
+    rgba(255,255,255,.05);
+
+    border:
+    1px solid rgba(255,255,255,.12);
+
+    color:white;
 }
 
-.token-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+
+/* =========================
+   GENERAL SECTIONS
+========================= */
+
+section{
+
+    padding:100px 7%;
+
+    max-width:1250px;
+
+    margin:auto;
 }
 
-.stat {
-    background: rgba(0,0,0,.25);
-    padding: 25px;
-    border-radius: 16px;
+
+.section-title{
+
+    text-align:center;
+
+    margin-bottom:50px;
 }
 
-.stat span {
-    display: block;
-    color: var(--muted);
-    font-size: 13px;
-    margin-bottom: 8px;
+
+.section-title h2{
+
+    font-size:42px;
+
+    margin-bottom:12px;
 }
 
-.stat strong {
-    font-size: 20px;
-    word-break: break-word;
+
+.section-title p{
+
+    color:var(--muted);
 }
 
-.contract {
-    font-size: 13px !important;
-    color: var(--cyan-light);
-}
 
-/* AIRDROP */
+/* =========================
+   TOKEN
+========================= */
 
-.airdrop {
-    text-align: center;
-}
+.token-box{
 
-.airdrop-box {
-    max-width: 800px;
-    margin: auto;
-    padding: 45px;
-    border-radius: 25px;
-    border: 1px solid var(--border);
     background:
-        radial-gradient(circle at center, rgba(0,151,178,.12), transparent 60%),
-        var(--card);
+    linear-gradient(
+        135deg,
+        rgba(0,151,178,.14),
+        rgba(0,0,0,.25)
+    );
+
+    border:
+    1px solid var(--border);
+
+    border-radius:25px;
+
+    padding:35px;
 }
 
-.points {
-    font-size: 50px;
-    font-weight: 900;
-    margin: 20px;
-    color: var(--cyan-light);
+
+.token-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:18px;
 }
 
-.tasks {
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 12px;
-    margin: 30px 0;
-    text-align: left;
+
+.stat{
+
+    background:
+    rgba(0,0,0,.25);
+
+    padding:22px;
+
+    border-radius:16px;
 }
 
-.task {
-    padding: 16px;
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 12px;
-    background: rgba(255,255,255,.025);
+
+.stat span{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-bottom:8px;
 }
 
-.task span {
-    color: #39e58c;
-    margin-right: 8px;
+
+.stat strong{
+
+    font-size:20px;
+
+    word-break:break-word;
 }
 
-/* ROADMAP */
 
-.roadmap {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 15px;
+.contract{
+
+    color:var(--cyan2);
+
+    font-size:13px!important;
 }
 
-.phase {
-    padding: 25px;
-    border-left: 3px solid var(--cyan);
-    background: rgba(255,255,255,.03);
-    border-radius: 0 15px 15px 0;
+
+.action-row{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    margin-top:20px;
 }
 
-.phase small {
-    color: var(--cyan-light);
+
+/* =========================
+   FEATURES
+========================= */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:20px;
 }
 
-.phase h3 {
-    margin: 10px 0;
+
+.card{
+
+    background:var(--card);
+
+    border:
+    1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:28px;
+
+    backdrop-filter:blur(10px);
+
+    transition:.25s;
 }
 
-.phase p {
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.6;
+
+.card:hover{
+
+    transform:translateY(-5px);
+
+    border-color:
+    rgba(25,216,242,.5);
 }
 
-/* TOKENOMICS */
 
-.tokenomics {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    align-items: center;
+.card-icon{
+
+    font-size:30px;
+
+    margin-bottom:18px;
 }
 
-.tokenomics-list {
-    display: grid;
-    gap: 12px;
+
+.card h3{
+
+    margin-bottom:10px;
 }
 
-.token-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 17px;
-    background: rgba(255,255,255,.035);
-    border-radius: 12px;
+
+.card p{
+
+    color:var(--muted);
+
+    line-height:1.6;
 }
 
-.token-row span:last-child {
-    color: var(--cyan-light);
-    font-weight: bold;
+
+/* =========================
+   WALLET DASHBOARD
+========================= */
+
+.wallet-section{
+
+    display:none;
 }
 
-/* FOOTER */
 
-footer {
-    border-top: 1px solid rgba(255,255,255,.07);
-    padding: 45px 7%;
-    text-align: center;
-    color: var(--muted);
+.wallet-dashboard{
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(0,151,178,.13),
+        rgba(255,255,255,.025)
+    );
+
+    border:
+    1px solid var(--border);
+
+    border-radius:25px;
+
+    padding:30px;
 }
 
-.socials {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin: 20px 0;
+
+.wallet-address{
+
+    padding:18px;
+
+    background:
+    rgba(0,0,0,.3);
+
+    border-radius:14px;
+
+    margin-bottom:20px;
+
+    color:var(--cyan2);
+
+    word-break:break-all;
 }
 
-.socials a:hover {
-    color: var(--cyan-light);
+
+.balance-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:15px;
 }
 
-/* WALLET */
 
-.wallet-status {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(5,15,20,.95);
-    border: 1px solid var(--border);
-    padding: 15px 20px;
-    border-radius: 15px;
-    display: none;
-    z-index: 200;
-    max-width: 320px;
-    font-size: 13px;
+.balance-card{
+
+    padding:25px;
+
+    background:
+    rgba(0,0,0,.25);
+
+    border-radius:16px;
 }
 
-.wallet-status strong {
-    color: var(--cyan-light);
+
+.balance-card span{
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    display:block;
+
+    margin-bottom:8px;
 }
 
-/* MOBILE */
 
-@media(max-width: 800px) {
+.balance-card strong{
 
-    nav {
-        padding: 0 20px;
+    font-size:26px;
+}
+
+
+.network-ok{
+
+    color:var(--green);
+
+    font-size:13px;
+
+    margin-top:15px;
+}
+
+
+/* =========================
+   AIRDROP
+========================= */
+
+.airdrop-box{
+
+    max-width:800px;
+
+    margin:auto;
+
+    padding:45px;
+
+    border-radius:25px;
+
+    border:
+    1px solid var(--border);
+
+    background:
+    radial-gradient(
+        circle at center,
+        rgba(0,151,178,.12),
+        transparent 60%
+    ),
+    var(--card);
+
+    text-align:center;
+}
+
+
+.points{
+
+    font-size:55px;
+
+    font-weight:900;
+
+    margin:20px;
+
+    color:var(--cyan2);
+}
+
+
+.tasks{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:12px;
+
+    margin:30px 0;
+
+    text-align:left;
+}
+
+
+.task{
+
+    padding:16px;
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    border-radius:12px;
+
+    background:
+    rgba(255,255,255,.025);
+}
+
+
+.task span{
+
+    color:var(--green);
+
+    margin-right:8px;
+}
+
+
+/* =========================
+   ROADMAP
+========================= */
+
+.roadmap{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:15px;
+}
+
+
+.phase{
+
+    padding:25px;
+
+    border-left:
+    3px solid var(--cyan);
+
+    background:
+    rgba(255,255,255,.03);
+
+    border-radius:
+    0 15px 15px 0;
+}
+
+
+.phase small{
+
+    color:var(--cyan2);
+}
+
+
+.phase h3{
+
+    margin:10px 0;
+}
+
+
+.phase p{
+
+    color:var(--muted);
+
+    font-size:14px;
+
+    line-height:1.6;
+}
+
+
+/* =========================
+   TOKENOMICS
+========================= */
+
+.tokenomics{
+
+    display:grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap:30px;
+
+    align-items:center;
+}
+
+
+.tokenomics-logo{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+
+.tokenomics-logo img{
+
+    width:220px;
+
+    max-width:100%;
+
+    border-radius:35px;
+
+    box-shadow:
+    0 0 40px rgba(0,151,178,.3);
+}
+
+
+.tokenomics-list{
+
+    display:grid;
+
+    gap:12px;
+}
+
+
+.token-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:17px;
+
+    background:
+    rgba(255,255,255,.035);
+
+    border-radius:12px;
+}
+
+
+.token-row span:last-child{
+
+    color:var(--cyan2);
+
+    font-weight:bold;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    border-top:
+    1px solid rgba(255,255,255,.07);
+
+    padding:45px 7%;
+
+    text-align:center;
+
+    color:var(--muted);
+}
+
+
+.footer-logo{
+
+    width:55px;
+
+    height:55px;
+
+    margin:0 auto 15px;
+
+    border-radius:15px;
+
+    overflow:hidden;
+}
+
+
+.footer-logo img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+}
+
+
+.socials{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:22px;
+
+    margin:20px 0;
+}
+
+
+.socials a:hover{
+
+    color:var(--cyan2);
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.wallet-status{
+
+    position:fixed;
+
+    bottom:20px;
+
+    right:20px;
+
+    background:
+    rgba(5,15,20,.96);
+
+    border:
+    1px solid var(--border);
+
+    padding:16px 20px;
+
+    border-radius:15px;
+
+    display:none;
+
+    z-index:2000;
+
+    max-width:350px;
+
+    font-size:13px;
+
+    box-shadow:
+    0 10px 40px rgba(0,0,0,.4);
+}
+
+
+.wallet-status strong{
+
+    color:var(--cyan2);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px){
+
+    nav{
+
+        padding:0 18px;
     }
 
-    .nav-links {
-        display: none;
+    .nav-links{
+
+        display:none;
     }
 
-    section {
-        padding: 75px 20px;
+    section{
+
+        padding:
+        75px 20px;
     }
 
-    .cards {
-        grid-template-columns: 1fr;
+    .hero-logo{
+
+        width:145px;
+
+        height:145px;
     }
 
-    .token-grid {
-        grid-template-columns: 1fr 1fr;
+    h1{
+
+        letter-spacing:-3px;
     }
 
-    .roadmap {
-        grid-template-columns: 1fr;
+    .cards{
+
+        grid-template-columns:1fr;
     }
 
-    .tokenomics {
-        grid-template-columns: 1fr;
+    .token-grid{
+
+        grid-template-columns:
+        1fr 1fr;
     }
 
-    .tasks {
-        grid-template-columns: 1fr;
+    .balance-grid{
+
+        grid-template-columns:1fr;
     }
 
-    .token-box {
-        padding: 25px;
+    .roadmap{
+
+        grid-template-columns:1fr;
     }
 
-    h1 {
-        letter-spacing: -3px;
+    .tokenomics{
+
+        grid-template-columns:1fr;
     }
+
+    .tasks{
+
+        grid-template-columns:1fr;
+    }
+
+    .token-box{
+
+        padding:22px;
+    }
+
+    .airdrop-box{
+
+        padding:28px 20px;
+    }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
-<!-- NAVBAR -->
+
+<!-- =========================
+     NAVBAR
+========================= -->
 
 <nav>
 
-    <a href="#" class="logo">
-        <div class="logo-mark">G</div>
+    <a href="#" class="nav-brand">
+
+        <div class="nav-logo">
+
+            <img
+            src="logo.png"
+            alt="GINEUS">
+
+        </div>
+
         GINEUS
+
     </a>
 
+
     <div class="nav-links">
-        <a href="#token">Token</a>
-        <a href="#airdrop">Airdrop</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#tokenomics">Tokenomics</a>
+
+        <a href="#token">
+            Token
+        </a>
+
+        <a href="#dashboard">
+            Dashboard
+        </a>
+
+        <a href="#airdrop">
+            Airdrop
+        </a>
+
+        <a href="#roadmap">
+            Roadmap
+        </a>
+
+        <a href="#tokenomics">
+            Tokenomics
+        </a>
+
     </div>
 
-    <button class="connect-btn" id="connectButton">
+
+    <button
+    class="connect-btn"
+    id="connectButton">
+
         Connect Wallet
+
     </button>
 
 </nav>
 
 
-<!-- HERO -->
+
+<!-- =========================
+     HERO
+========================= -->
 
 <header class="hero">
 
-    <div class="hero-content">
+<div class="hero-content">
 
-        <div class="badge">
-            ⚡ BUILT ON SVPCHAIN TESTNET
-        </div>
 
-        <div class="hero-logo">
-            G
-        </div>
+    <div class="badge">
 
-        <h1>
-            <span class="gradient">GINEUS</span>
-        </h1>
-
-        <p>
-            A community-driven Web3 ecosystem built around
-            participation, activity and rewards.
-        </p>
-
-        <div class="hero-buttons">
-
-            <button class="primary-btn" id="heroConnect">
-                Connect Wallet
-            </button>
-
-            <a href="#airdrop" class="secondary-btn">
-                Explore Airdrop
-            </a>
-
-        </div>
+        ⚡ BUILT ON SVPCHAIN TESTNET
 
     </div>
+
+
+    <div class="hero-logo">
+
+        <img
+        src="logo.png"
+        alt="GINEUS Logo">
+
+    </div>
+
+
+    <h1>
+
+        <span class="gradient">
+            GINEUS
+        </span>
+
+    </h1>
+
+
+    <p>
+
+        A community-driven Web3 ecosystem
+        built around participation,
+        activity and rewards.
+
+    </p>
+
+
+    <div class="hero-buttons">
+
+        <button
+        class="primary-btn"
+        id="heroConnect">
+
+            Connect Wallet
+
+        </button>
+
+
+        <a
+        href="#airdrop"
+        class="secondary-btn">
+
+            Explore Airdrop
+
+        </a>
+
+    </div>
+
+
+</div>
 
 </header>
 
 
-<!-- TOKEN -->
+
+<!-- =========================
+     TOKEN
+========================= -->
 
 <section id="token">
 
-    <div class="section-title">
+<div class="section-title">
 
-        <h2>GINEUS Token</h2>
+    <h2>
+        GINEUS Token
+    </h2>
 
-        <p>
-            The native community token of the GINEUS ecosystem.
-        </p>
+    <p>
+        The community token of the GINEUS ecosystem.
+    </p>
+
+</div>
+
+
+<div class="token-box">
+
+
+<div class="token-grid">
+
+
+    <div class="stat">
+
+        <span>
+            Token
+        </span>
+
+        <strong>
+            GINEUS
+        </strong>
+
+    </div>
+
+
+    <div class="stat">
+
+        <span>
+            Total Supply
+        </span>
+
+        <strong>
+            10,000,000
+        </strong>
 
     </div>
 
-    <div class="token-box">
 
-        <div class="token-grid">
+    <div class="stat">
 
-            <div class="stat">
-                <span>Token</span>
-                <strong>GINEUS</strong>
-            </div>
+        <span>
+            Network
+        </span>
 
-            <div class="stat">
-                <span>Total Supply</span>
-                <strong>10,000,000</strong>
-            </div>
-
-            <div class="stat">
-                <span>Network</span>
-                <strong>SVPChain</strong>
-            </div>
-
-            <div class="stat">
-                <span>Decimals</span>
-                <strong>18</strong>
-            </div>
-
-        </div>
-
-        <br>
-
-        <div class="stat">
-
-            <span>Contract Address</span>
-
-            <strong class="contract">
-                0xB5Be364100fbBf62f0236382c381ac48CB4a15BE
-            </strong>
-
-        </div>
-
-        <br>
-
-        <button class="primary-btn" onclick="addToken()">
-            Add GINEUS to Wallet
-        </button>
+        <strong>
+            SVPChain
+        </strong>
 
     </div>
+
+
+    <div class="stat">
+
+        <span>
+            Decimals
+        </span>
+
+        <strong>
+            18
+        </strong>
+
+    </div>
+
+
+</div>
+
+
+<br>
+
+
+<div class="stat">
+
+    <span>
+        Contract Address
+    </span>
+
+    <strong class="contract">
+
+        0xB5Be364100fbBf62f0236382c381ac48CB4a15BE
+
+    </strong>
+
+</div>
+
+
+<div class="action-row">
+
+
+    <button
+    class="primary-btn"
+    onclick="addToken()">
+
+        Add GINEUS to Wallet
+
+    </button>
+
+
+    <a
+    href="https://swap.svpstars.com/trade"
+    target="_blank"
+    class="secondary-btn">
+
+        Trade GINEUS
+
+    </a>
+
+
+    <a
+    href="https://explorer.svpchain.com"
+    target="_blank"
+    class="secondary-btn">
+
+        Explorer
+
+    </a>
+
+
+</div>
+
+
+</div>
 
 </section>
 
 
-<!-- FEATURES -->
+
+<!-- =========================
+     WALLET DASHBOARD
+========================= -->
+
+<section
+id="dashboard"
+class="wallet-section">
+
+
+<div class="section-title">
+
+    <h2>
+        Wallet Dashboard
+    </h2>
+
+    <p>
+        Your GINEUS ecosystem wallet.
+    </p>
+
+</div>
+
+
+<div class="wallet-dashboard">
+
+
+<div class="wallet-address">
+
+    <span>
+        Connected Wallet
+    </span>
+
+    <br><br>
+
+    <strong id="walletAddress">
+        -
+    </strong>
+
+</div>
+
+
+<div class="balance-grid">
+
+
+<div class="balance-card">
+
+    <span>
+        SVP Balance
+    </span>
+
+    <strong id="svpBalance">
+        0
+    </strong>
+
+    <small>
+        SVP
+    </small>
+
+</div>
+
+
+<div class="balance-card">
+
+    <span>
+        GINEUS Balance
+    </span>
+
+    <strong id="gineusBalance">
+        0
+    </strong>
+
+    <small>
+        GINEUS
+    </small>
+
+</div>
+
+
+</div>
+
+
+<div class="network-ok">
+
+    ● Connected to SVPChain Testnet
+
+</div>
+
+
+</div>
+
+</section>
+
+
+
+<!-- =========================
+     PARTICIPATE
+========================= -->
 
 <section>
 
-    <div class="section-title">
+<div class="section-title">
 
-        <h2>Participate</h2>
+    <h2>
+        Participate
+    </h2>
 
-        <p>
-            GINEUS is designed around community activity.
-        </p>
+    <p>
+        Build your activity inside the GINEUS ecosystem.
+    </p>
 
+</div>
+
+
+<div class="cards">
+
+
+<div class="card">
+
+    <div class="card-icon">
+        🧠
     </div>
 
-    <div class="cards">
+    <h3>
+        Think
+    </h3>
 
-        <div class="card">
-            <div class="card-icon">🧠</div>
-            <h3>Think</h3>
-            <p>
-                Complete activities and contribute to the GINEUS
-                community ecosystem.
-            </p>
-        </div>
+    <p>
+        Explore the GINEUS ecosystem
+        and participate in community activities.
+    </p>
 
-        <div class="card">
-            <div class="card-icon">⚡</div>
-            <h3>Participate</h3>
-            <p>
-                Connect your wallet and participate in
-                ecosystem activities.
-            </p>
-        </div>
+</div>
 
-        <div class="card">
-            <div class="card-icon">🎁</div>
-            <h3>Earn Points</h3>
-            <p>
-                Collect points through eligible community
-                activities and campaigns.
-            </p>
-        </div>
 
+<div class="card">
+
+    <div class="card-icon">
+        ⚡
     </div>
+
+    <h3>
+        Participate
+    </h3>
+
+    <p>
+        Connect your wallet and
+        participate in eligible ecosystem activities.
+    </p>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-icon">
+        🎁
+    </div>
+
+    <h3>
+        Earn Points
+    </h3>
+
+    <p>
+        Collect points from eligible
+        GINEUS campaigns and activities.
+    </p>
+
+</div>
+
+
+</div>
 
 </section>
 
 
-<!-- AIRDROP -->
 
-<section id="airdrop" class="airdrop">
+<!-- =========================
+     AIRDROP
+========================= -->
 
-    <div class="section-title">
+<section id="airdrop">
 
-        <h2>GINEUS Airdrop</h2>
 
-        <p>
-            Participate in activities and collect GINEUS Points.
-        </p>
+<div class="section-title">
 
-    </div>
+    <h2>
+        GINEUS Airdrop
+    </h2>
 
-    <div class="airdrop-box">
+    <p>
+        Participate in activities and collect GINEUS Points.
+    </p>
 
-        <h3>Your Points</h3>
+</div>
 
-        <div class="points">
-            0
-        </div>
 
-        <p style="color:#91a4ad;">
-            Connect your wallet to start participating.
-        </p>
+<div class="airdrop-box">
 
-        <div class="tasks">
 
-            <div class="task">
-                <span>✓</span>
-                Connect Wallet
-            </div>
+<h3>
+    Your Points
+</h3>
 
-            <div class="task">
-                <span>✓</span>
-                Daily Check-in
-            </div>
 
-            <div class="task">
-                <span>✓</span>
-                Social Activities
-            </div>
+<div class="points">
 
-            <div class="task">
-                <span>✓</span>
-                Referral
-            </div>
+    0
 
-            <div class="task">
-                <span>✓</span>
-                Testnet Activity
-            </div>
+</div>
 
-            <div class="task">
-                <span>✓</span>
-                Community Participation
-            </div>
 
-        </div>
+<p style="color:#91a5ae">
 
-        <button class="primary-btn" id="airdropConnect">
-            Start Earning
-        </button>
+    Connect your wallet to start participating.
 
-    </div>
+</p>
+
+
+<div class="tasks">
+
+
+<div class="task">
+
+    <span>✓</span>
+
+    Connect Wallet
+
+</div>
+
+
+<div class="task">
+
+    <span>✓</span>
+
+    Daily Check-in
+
+</div>
+
+
+<div class="task">
+
+    <span>✓</span>
+
+    Social Activities
+
+</div>
+
+
+<div class="task">
+
+    <span>✓</span>
+
+    Referral
+
+</div>
+
+
+<div class="task">
+
+    <span>✓</span>
+
+    Testnet Activity
+
+</div>
+
+
+<div class="task">
+
+    <span>✓</span>
+
+    Community Participation
+
+</div>
+
+
+</div>
+
+
+<button
+class="primary-btn"
+id="airdropConnect">
+
+    Start Earning
+
+</button>
+
+
+</div>
 
 </section>
 
 
-<!-- ROADMAP -->
+
+<!-- =========================
+     ROADMAP
+========================= -->
 
 <section id="roadmap">
 
-    <div class="section-title">
 
-        <h2>Roadmap</h2>
+<div class="section-title">
 
-        <p>
-            Building GINEUS step by step.
-        </p>
+    <h2>
+        Roadmap
+    </h2>
 
-    </div>
+    <p>
+        Building GINEUS step by step.
+    </p>
 
-    <div class="roadmap">
+</div>
 
-        <div class="phase">
-            <small>PHASE 01</small>
-            <h3>Testnet</h3>
-            <p>
-                Token deployment, community testing and
-                initial liquidity.
-            </p>
-        </div>
 
-        <div class="phase">
-            <small>PHASE 02</small>
-            <h3>Community</h3>
-            <p>
-                Community building, social campaigns and
-                points system.
-            </p>
-        </div>
+<div class="roadmap">
 
-        <div class="phase">
-            <small>PHASE 03</small>
-            <h3>Airdrop</h3>
-            <p>
-                Eligibility tracking, anti-Sybil system and
-                token distribution.
-            </p>
-        </div>
 
-        <div class="phase">
-            <small>PHASE 04</small>
-            <h3>Ecosystem</h3>
-            <p>
-                Expansion of the GINEUS ecosystem and
-                additional Web3 integrations.
-            </p>
-        </div>
+<div class="phase">
 
-    </div>
+    <small>
+        PHASE 01
+    </small>
+
+    <h3>
+        Testnet
+    </h3>
+
+    <p>
+        Token deployment,
+        community testing and
+        initial liquidity.
+    </p>
+
+</div>
+
+
+<div class="phase">
+
+    <small>
+        PHASE 02
+    </small>
+
+    <h3>
+        Community
+    </h3>
+
+    <p>
+        Community building,
+        social campaigns and
+        points system.
+    </p>
+
+</div>
+
+
+<div class="phase">
+
+    <small>
+        PHASE 03
+    </small>
+
+    <h3>
+        Airdrop
+    </h3>
+
+    <p>
+        Eligibility tracking,
+        anti-Sybil system and
+        token distribution.
+    </p>
+
+</div>
+
+
+<div class="phase">
+
+    <small>
+        PHASE 04
+    </small>
+
+    <h3>
+        Ecosystem
+    </h3>
+
+    <p>
+        Expansion of the
+        GINEUS ecosystem and
+        Web3 integrations.
+    </p>
+
+</div>
+
+
+</div>
 
 </section>
 
 
-<!-- TOKENOMICS -->
+
+<!-- =========================
+     TOKENOMICS
+========================= -->
 
 <section id="tokenomics">
 
-    <div class="section-title">
 
-        <h2>Tokenomics</h2>
+<div class="section-title">
 
-        <p>
-            Initial allocation concept.
-        </p>
+    <h2>
+        Tokenomics
+    </h2>
 
-    </div>
+    <p>
+        Initial allocation concept.
+    </p>
 
-    <div class="tokenomics">
+</div>
 
-        <div class="card">
 
-            <div class="hero-logo" style="width:150px;height:150px;margin:auto;">
-                G
-            </div>
+<div class="tokenomics">
 
-        </div>
 
-        <div class="tokenomics-list">
+<div class="tokenomics-logo">
 
-            <div class="token-row">
-                <span>Airdrop & Community</span>
-                <span>20%</span>
-            </div>
+    <img
+    src="logo.png"
+    alt="GINEUS">
 
-            <div class="token-row">
-                <span>Liquidity</span>
-                <span>10%</span>
-            </div>
+</div>
 
-            <div class="token-row">
-                <span>Ecosystem</span>
-                <span>25%</span>
-            </div>
 
-            <div class="token-row">
-                <span>Development</span>
-                <span>20%</span>
-            </div>
+<div class="tokenomics-list">
 
-            <div class="token-row">
-                <span>Community Growth</span>
-                <span>15%</span>
-            </div>
 
-            <div class="token-row">
-                <span>Reserve</span>
-                <span>10%</span>
-            </div>
+<div class="token-row">
 
-        </div>
+    <span>
+        Airdrop & Community
+    </span>
 
-    </div>
+    <span>
+        20%
+    </span>
+
+</div>
+
+
+<div class="token-row">
+
+    <span>
+        Liquidity
+    </span>
+
+    <span>
+        10%
+    </span>
+
+</div>
+
+
+<div class="token-row">
+
+    <span>
+        Ecosystem
+    </span>
+
+    <span>
+        25%
+    </span>
+
+</div>
+
+
+<div class="token-row">
+
+    <span>
+        Development
+    </span>
+
+    <span>
+        20%
+    </span>
+
+</div>
+
+
+<div class="token-row">
+
+    <span>
+        Community Growth
+    </span>
+
+    <span>
+        15%
+    </span>
+
+</div>
+
+
+<div class="token-row">
+
+    <span>
+        Reserve
+    </span>
+
+    <span>
+        10%
+    </span>
+
+</div>
+
+
+</div>
+
+</div>
 
 </section>
 
 
-<!-- COMMUNITY -->
+
+<!-- =========================
+     COMMUNITY
+========================= -->
 
 <section>
 
-    <div class="section-title">
 
-        <h2>Join GINEUS</h2>
+<div class="section-title">
 
-        <p>
-            Follow the project and become part of the community.
-        </p>
+    <h2>
+        Join GINEUS
+    </h2>
 
+    <p>
+        Follow GINEUS updates and become part of the community.
+    </p>
+
+</div>
+
+
+<div class="cards">
+
+
+<a
+href="#"
+class="card">
+
+    <div class="card-icon">
+        𝕏
     </div>
 
-    <div class="cards">
+    <h3>
+        X / Twitter
+    </h3>
 
-        <a href="#" class="card">
-            <div class="card-icon">𝕏</div>
-            <h3>X / Twitter</h3>
-            <p>
-                Follow GINEUS updates and announcements.
-            </p>
-        </a>
+    <p>
+        Follow GINEUS updates and announcements.
+    </p>
 
-        <a href="#" class="card">
-            <div class="card-icon">✈️</div>
-            <h3>Telegram</h3>
-            <p>
-                Join the GINEUS community.
-            </p>
-        </a>
+</a>
 
-        <a href="#" class="card">
-            <div class="card-icon">💬</div>
-            <h3>Discord</h3>
-            <p>
-                Participate in community discussions.
-            </p>
-        </a>
 
+<a
+href="#"
+class="card">
+
+    <div class="card-icon">
+        ✈️
     </div>
+
+    <h3>
+        Telegram
+    </h3>
+
+    <p>
+        Join the GINEUS community.
+    </p>
+
+</a>
+
+
+<a
+href="#"
+class="card">
+
+    <div class="card-icon">
+        💬
+    </div>
+
+    <h3>
+        Discord
+    </h3>
+
+    <p>
+        Participate in community discussions.
+    </p>
+
+</a>
+
+
+</div>
 
 </section>
 
 
-<!-- FOOTER -->
+
+<!-- =========================
+     FOOTER
+========================= -->
 
 <footer>
 
-    <div class="logo" style="justify-content:center;">
-        <div class="logo-mark">G</div>
-        GINEUS
-    </div>
 
-    <div class="socials">
-        <a href="#">X</a>
-        <a href="#">Telegram</a>
-        <a href="#">Discord</a>
-        <a href="https://explorer.svpchain.com" target="_blank">
-            Explorer
-        </a>
-    </div>
+<div class="footer-logo">
 
-    <p>
-        © 2026 GINEUS. Built on SVPChain.
-    </p>
+    <img
+    src="logo.png"
+    alt="GINEUS">
+
+</div>
+
+
+<strong
+style="color:white;font-size:20px;">
+
+    GINEUS
+
+</strong>
+
+
+<div class="socials">
+
+    <a href="#">
+        X
+    </a>
+
+    <a href="#">
+        Telegram
+    </a>
+
+    <a href="#">
+        Discord
+    </a>
+
+    <a
+    href="https://explorer.svpchain.com"
+    target="_blank">
+
+        Explorer
+
+    </a>
+
+</div>
+
+
+<p>
+    © 2026 GINEUS. Built on SVPChain.
+</p>
+
 
 </footer>
 
 
-<!-- WALLET STATUS -->
 
-<div class="wallet-status" id="walletStatus"></div>
+<!-- =========================
+     WALLET STATUS
+========================= -->
+
+<div
+class="wallet-status"
+id="walletStatus">
+
+</div>
+
 
 
 <script>
 
-const CONTRACT =
+/* ==========================================
+   GINEUS CONFIGURATION
+========================================== */
+
+
+const GINEUS_CONTRACT =
 "0xB5Be364100fbBf62f0236382c381ac48CB4a15BE";
 
-const SVP_CHAIN_ID = "0x9D5";
+
+const SVP_CHAIN_ID =
+"0x9D5";
+
 
 const SVP_NETWORK = {
-    chainId: SVP_CHAIN_ID,
-    chainName: "SVPChain Testnet",
-    nativeCurrency: {
-        name: "SVP",
-        symbol: "SVP",
-        decimals: 18
+
+    chainId:SVP_CHAIN_ID,
+
+    chainName:"SVPChain Testnet",
+
+    nativeCurrency:{
+
+        name:"SVP",
+
+        symbol:"SVP",
+
+        decimals:18
+
     },
-    rpcUrls: [
+
+    rpcUrls:[
+
         "https://svp-dataseed1-testnet.svpchain.org"
+
     ],
-    blockExplorerUrls: [
+
+    blockExplorerUrls:[
+
         "https://explorer.svpchain.com"
+
     ]
+
 };
 
 
-async function connectWallet() {
+/* ==========================================
+   ERC20 ABI
+========================================== */
 
-    if (!window.ethereum) {
+const ERC20_ABI = [
+
+    {
+        constant:true,
+        inputs:[
+            {
+                name:"account",
+                type:"address"
+            }
+        ],
+        name:"balanceOf",
+        outputs:[
+            {
+                name:"",
+                type:"uint256"
+            }
+        ],
+        type:"function"
+    },
+
+    {
+        constant:true,
+        inputs:[],
+        name:"decimals",
+        outputs:[
+            {
+                name:"",
+                type:"uint8"
+            }
+        ],
+        type:"function"
+    },
+
+    {
+        constant:true,
+        inputs:[],
+        name:"symbol",
+        outputs:[
+            {
+                name:"",
+                type:"string"
+            }
+        ],
+        type:"function"
+    }
+
+];
+
+
+/* ==========================================
+   ELEMENTS
+========================================== */
+
+const connectButton =
+document.getElementById("connectButton");
+
+const heroConnect =
+document.getElementById("heroConnect");
+
+const airdropConnect =
+document.getElementById("airdropConnect");
+
+const walletSection =
+document.getElementById("dashboard");
+
+const walletAddress =
+document.getElementById("walletAddress");
+
+const svpBalance =
+document.getElementById("svpBalance");
+
+const gineusBalance =
+document.getElementById("gineusBalance");
+
+const walletStatus =
+document.getElementById("walletStatus");
+
+
+/* ==========================================
+   CONNECT WALLET
+========================================== */
+
+async function connectWallet(){
+
+    if(!window.ethereum){
 
         alert(
-            "MetaMask belum terpasang. Silakan install MetaMask terlebih dahulu."
+            "MetaMask belum terpasang. Silakan install MetaMask."
         );
 
         return;
+
     }
 
-    try {
+
+    try{
 
         const accounts =
-            await window.ethereum.request({
-                method: "eth_requestAccounts"
-            });
+        await window.ethereum.request({
+
+            method:"eth_requestAccounts"
+
+        });
+
 
         await switchNetwork();
 
-        const address = accounts[0];
 
-        const shortAddress =
-            address.substring(0, 6) +
-            "..." +
-            address.substring(address.length - 4);
+        const address =
+        accounts[0];
 
-        document.getElementById("connectButton").innerText =
-            shortAddress;
 
-        showWallet(
-            "Connected<br><strong>" +
-            shortAddress +
-            "</strong>"
+        updateWallet(address);
+
+
+        await loadBalances(address);
+
+
+        showStatus(
+            "Wallet berhasil terhubung."
         );
 
-    } catch (error) {
+
+    }catch(error){
 
         console.error(error);
 
-        alert(
-            "Wallet connection dibatalkan atau gagal."
+        showStatus(
+            "Koneksi wallet dibatalkan."
         );
+
     }
+
 }
 
 
-async function switchNetwork() {
+/* ==========================================
+   SWITCH NETWORK
+========================================== */
 
-    try {
+async function switchNetwork(){
+
+    try{
 
         await window.ethereum.request({
-            method: "wallet_switchEthereumChain",
-            params: [
+
+            method:
+            "wallet_switchEthereumChain",
+
+            params:[
+
                 {
-                    chainId: SVP_CHAIN_ID
+                    chainId:
+                    SVP_CHAIN_ID
                 }
+
             ]
+
         });
 
-    } catch (switchError) {
+    }catch(error){
 
-        if (switchError.code === 4902) {
+        if(error.code === 4902){
 
             await window.ethereum.request({
-                method: "wallet_addEthereumChain",
-                params: [SVP_NETWORK]
+
+                method:
+                "wallet_addEthereumChain",
+
+                params:[
+                    SVP_NETWORK
+                ]
+
             });
 
-        } else {
+        }else{
 
-            throw switchError;
+            throw error;
+
         }
+
     }
+
 }
 
 
-async function addToken() {
+/* ==========================================
+   UPDATE WALLET UI
+========================================== */
 
-    if (!window.ethereum) {
+function updateWallet(address){
 
-        alert("Install MetaMask terlebih dahulu.");
+    const shortAddress =
+        address.substring(0,6)
+        +
+        "..."
+        +
+        address.substring(
+            address.length-4
+        );
 
-        return;
-    }
 
-    try {
+    connectButton.innerText =
+        shortAddress;
 
-        const wasAdded =
-            await window.ethereum.request({
-                method: "wallet_watchAsset",
-                params: {
-                    type: "ERC20",
-                    options: {
-                        address: CONTRACT,
-                        symbol: "GINEUS",
-                        decimals: 18
-                    }
+
+    walletAddress.innerText =
+        address;
+
+
+    walletSection.style.display =
+        "block";
+
+
+    walletSection.scrollIntoView({
+        behavior:"smooth"
+    });
+
+}
+
+
+/* ==========================================
+   LOAD BALANCES
+========================================== */
+
+async function loadBalances(address){
+
+    try{
+
+        const provider =
+        new ethers.providers.Web3Provider(
+            window.ethereum
+        );
+
+
+        /* SVP */
+
+        const nativeBalance =
+        await provider.getBalance(
+            address
+        );
+
+
+        const svp =
+        ethers.utils.formatEther(
+            nativeBalance
+        );
+
+
+        svpBalance.innerText =
+            Number(svp).toFixed(4);
+
+
+        /* GINEUS */
+
+        const contract =
+        new ethers.Contract(
+            GINEUS_CONTRACT,
+            ERC20_ABI,
+            provider
+        );
+
+
+        const tokenBalance =
+        await contract.balanceOf(
+            address
+        );
+
+
+        const decimals =
+        await contract.decimals();
+
+
+        const formatted =
+        ethers.utils.formatUnits(
+            tokenBalance,
+            decimals
+        );
+
+
+        gineusBalance.innerText =
+            Number(formatted)
+            .toLocaleString(
+                "en-US",
+                {
+                    maximumFractionDigits:4
                 }
-            });
-
-        if (wasAdded) {
-
-            showWallet(
-                "GINEUS berhasil ditambahkan ke wallet."
             );
 
-        }
 
-    } catch (error) {
+    }catch(error){
+
+        console.error(
+            "Balance error:",
+            error
+        );
+
+        svpBalance.innerText =
+            "Error";
+
+        gineusBalance.innerText =
+            "Error";
+
+    }
+
+}
+
+
+/* ==========================================
+   ADD TOKEN TO METAMASK
+========================================== */
+
+async function addToken(){
+
+    if(!window.ethereum){
+
+        alert(
+            "MetaMask belum terpasang."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        await window.ethereum.request({
+
+            method:"wallet_watchAsset",
+
+            params:{
+
+                type:"ERC20",
+
+                options:{
+
+                    address:
+                    GINEUS_CONTRACT,
+
+                    symbol:"GINEUS",
+
+                    decimals:18
+
+                }
+
+            }
+
+        });
+
+    }catch(error){
 
         console.error(error);
 
     }
+
 }
 
 
-function showWallet(message) {
+/* ==========================================
+   STATUS
+========================================== */
 
-    const box =
-        document.getElementById("walletStatus");
+function showStatus(message){
 
-    box.innerHTML = message;
+    walletStatus.innerHTML =
+        message;
 
-    box.style.display = "block";
+    walletStatus.style.display =
+        "block";
 
-    setTimeout(() => {
 
-        box.style.display = "none";
+    setTimeout(
 
-    }, 5000);
+        function(){
+
+            walletStatus.style.display =
+                "none";
+
+        },
+
+        4000
+
+    );
+
 }
 
 
-document
-    .getElementById("connectButton")
-    .addEventListener(
-        "click",
-        connectWallet
-    );
+/* ==========================================
+   BUTTON EVENTS
+========================================== */
+
+connectButton.addEventListener(
+    "click",
+    connectWallet
+);
 
 
-document
-    .getElementById("heroConnect")
-    .addEventListener(
-        "click",
-        connectWallet
-    );
+heroConnect.addEventListener(
+    "click",
+    connectWallet
+);
 
 
-document
-    .getElementById("airdropConnect")
-    .addEventListener(
-        "click",
-        connectWallet
-    );
+airdropConnect.addEventListener(
+    "click",
+    connectWallet
+);
 
 
-if (window.ethereum) {
+/* ==========================================
+   ACCOUNT CHANGED
+========================================== */
+
+if(window.ethereum){
 
     window.ethereum.on(
         "accountsChanged",
-        function(accounts) {
+        function(accounts){
 
-            if (accounts.length === 0) {
+            if(accounts.length === 0){
 
-                document.getElementById(
-                    "connectButton"
-                ).innerText =
+                connectButton.innerText =
                     "Connect Wallet";
+
+                walletSection.style.display =
+                    "none";
+
+            }else{
+
+                updateWallet(
+                    accounts[0]
+                );
+
+                loadBalances(
+                    accounts[0]
+                );
 
             }
 
@@ -1130,7 +2485,18 @@ if (window.ethereum) {
 
 }
 
+
+/* ==========================================
+   LOAD ETHERS LIBRARY
+========================================== */
+
 </script>
+
+
+<script
+src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js">
+</script>
+
 
 </body>
 </html>
