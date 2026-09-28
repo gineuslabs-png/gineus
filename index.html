@@ -424,6 +424,8 @@
      * This version reads only the user's profile, then uses transaction.create()
      * for the task document. The task document ID is deterministic, so the
      * same task cannot be created twice.
+     * Compat SDK does not provide transaction.create(); transaction.set()
+     * is used instead, while Firestore Rules allow only create for tasks.
      */
     async function completeTask(taskCode){
       if(!requireWallet())return;
@@ -453,7 +455,7 @@
 
           const oldPoints=Number(profileSnap.data()?.points||0);
 
-          transaction.create(taskRef,{
+          transaction.set(taskRef,{
             userId:user.uid,
             wallet:currentWallet.toLowerCase(),
             taskCode:taskCode,
@@ -473,10 +475,17 @@
       }catch(error){
         console.error("TASK ERROR:",error);
 
-        if(error.code==="already-exists" || error.code===6){
-          setTaskDone(taskCode);
-          setStatus("profileStatus","This task has already been completed.","");
-          return;
+        // A second claim is rejected by Firestore Rules because the
+        // task document already exists and updates are not allowed.
+        try{
+          const existingTask=await taskRef.get();
+          if(existingTask.exists){
+            setTaskDone(taskCode);
+            setStatus("profileStatus","This task has already been completed.","");
+            return;
+          }
+        }catch(checkError){
+          console.error("TASK CHECK ERROR:",checkError);
         }
 
         setStatus("profileStatus","Task error: "+(error.message||"Unable to complete task."),"err");
@@ -499,7 +508,7 @@
 
           const oldPoints=Number(profileSnap.data()?.points||0);
 
-          transaction.create(taskRef,{
+          transaction.set(taskRef,{
             userId:user.uid,
             wallet:currentWallet.toLowerCase(),
             taskCode:taskCode,
